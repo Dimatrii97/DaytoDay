@@ -1,25 +1,44 @@
 <template>
-    <VScene
-        :key="currentSceneId"
-        :scene="currentScene"
-        @changeScene="changeScene"
-    />
+    <div>
+        <div class="music">
+            <MusicOn v-if="enableMusic" class="icon" @click="enableMusic = false" />
+            <MusicOff v-else class="icon" @click="enableMusic = true" />
+        </div>
+        <VScene
+            :key="currentSceneId"
+            :scene="currentScene"
+            @changeScene="changeScene"
+        />
+    </div>
 </template>
 
 <script>
+import MusicOff from './components/music/music-off.vue';
+import MusicOn from './components/music/music-on.vue';
 import VScene from './components/scene_type/VScene.vue';
 import { FIRST_SCENE } from './scenes/constants';
 import { DEFAULT_NEXT_ACTION_ID, RESTART_ACTION_ID, NEXT_SCENE_TRANSITION, SCENE_GRAPH } from './scenes/scene_graph';
+
+const music = require('@/assets/music/never_gonna_give_you_up.mp4');
 
 export default {
     name: 'App',
     components: {
         VScene,
+        MusicOff,
+        MusicOn,
     },
     data() {
         return {
             currentSceneId: FIRST_SCENE,
+            enableMusic: true,
+            audio: null,
         };
+    },
+    mounted() {
+        this.audio = new Audio(music);
+        this.audio.volume = 0.1;
+        this.audio.play();
     },
     computed: {
         currentScene() {
@@ -41,8 +60,39 @@ export default {
             this.currentSceneId = nextScene;
         },
     },
+    watch: {
+        enableMusic(value) {
+            if (value) {
+                this.audio.play();
+            } else {
+                this.audio.pause();
+            }
+        },
+    },
 };
 </script>
+
+<style lang="scss" scoped>
+.music {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5vw;
+    height: 5vh;
+    z-index: 5;
+    background: rgba(black, .3);
+    cursor: pointer;
+
+    :hover {
+        background: rgba(black, .1);
+    }
+
+    .icon {
+        width: 100%;
+        height: 100%;
+    }
+}
+</style>
 
 <style>
 *,
