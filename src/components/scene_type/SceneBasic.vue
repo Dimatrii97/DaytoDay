@@ -43,7 +43,7 @@ export default {
             return this.scene?.person ?? null;
         },
         personPosition() {
-            return this.person.position ?? POSITION.RIGHT;
+            return this.person.position ?? POSITION.CENTER;
         },
         personUrl() {
             return require('@/assets/img/person/' + this.person.url);
