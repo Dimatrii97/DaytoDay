@@ -31,6 +31,26 @@ const ACTIONS = {
         { text: 'Да)', nextScene: SCENES.timaInShower },
         { text: 'Пшел нах', nextScene: SCENES.showerEndGame },
     ],
+    willYouEat: [
+        { text: 'Да', nextScene: SCENES.breakFestSelection },
+        { text: 'Нет', nextScene: SCENES.workPlaceSelection },
+    ],
+    breakFestSelection: [
+        { text: 'Выпить пиво', nextScene: SCENES.workPlaceSelection },
+        // TODO: вероятно, тут нужен переход к видосику, где Саша готовит трешовый завтрак
+        { text: 'Саша приготовит трешовый завтрак', nextScene: SCENES.workPlaceSelection },
+    ],
+    workPlaceSelection: [
+        { text: 'Офис', nextScene: SCENES.toOfficeRoad },
+        { text: 'Удаленка', nextScene: SCENES.workAtHomeStart },
+    ],
+    toOfficeRoad: [
+        { text: 'Такси', nextScene: SCENES.mercedes },
+        { text: 'Пешком', nextScene: SCENES.mercedes },
+        { text: 'Пони', nextScene: SCENES.mercedes },
+        { text: 'Рандом', nextScene: SCENES.mercedes },
+    ],
+    workAtHomeStart: [],
 };
 
 export const DEFAULT_NEXT_ACTION_ID = 'next';
@@ -103,13 +123,55 @@ export const SCENE_GRAPH = {
         text: 'Идем в душ?))))',
         type: TYPE.text,
     },
+    [SCENES.timaInShower]: {
+        // TODO: заменить на видео
+        scene: IMAGE.SHOWER,
+        text: '...',
+        type: TYPE.text,
+    },
     [SCENES.showerEndGame]: {
         ...END_GAME_SCENE,
         text: 'Вы уволены.',
+    },
+
+    // Кухня
+    [SCENES.willYouEat]: {
+        person: null,
+        actions: ACTIONS.willYouEat,
+        scene: IMAGE.KITCHEN,
+        text: 'Будешь есть?',
+        type: TYPE.text,
+    },
+    [SCENES.breakFestSelection]: {
+        actions: ACTIONS.breakFestSelection,
+        scene: IMAGE.KITCHEN,
+        text: 'Что будешь есть?',
+        type: TYPE.text,
+    },
+
+    // Выбор рабочего места
+    [SCENES.workPlaceSelection]: {
+        actions: ACTIONS.workPlaceSelection,
+        scene: IMAGE.HOME,
+        text: 'Где будем работать?',
+        type: TYPE.text,
+    },
+    [SCENES.workAtHomeStart]: {
+        actions: ACTIONS.workAtHomeStart,
+        scene: IMAGE.HOME,
+        text: 'Начинается работа...',
+        type: TYPE.text,
+    },
+    [SCENES.toOfficeRoad]: {
+        actions: ACTIONS.toOfficeRoad,
+        scene: IMAGE.HOME,
+        text: 'Как будем добираться?',
+        type: TYPE.text,
     },
 };
 
 export const NEXT_SCENE_TRANSITION = {
     [SCENES.greeting]: SCENES.alarm800,
     [SCENES.alarm800]: SCENES.goToShower,
+    [SCENES.timaInShower]: SCENES.willYouEat,
 };

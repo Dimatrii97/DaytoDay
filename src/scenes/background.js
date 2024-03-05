@@ -1,8 +1,10 @@
 export const IMAGE = {
     GREETING: null,
     ALARM: 'home_workplace.png',
+    HOME: 'home_workplace.png',
     SHOWER: null,
     OFFICE: 'office.jpg',
+    KITCHEN: null,
 };
 
 export const VIDEO = {

@@ -15,6 +15,15 @@ export const SCENES = {
     goToShower: 'goToShower',
     timaInShower: 'timaInShower',
     showerEndGame: 'showerEndGame',
+
+    willYouEat: 'willYouEat',
+    breakFestSelection: 'breakFestSelection',
+
+    workPlaceSelection: 'workPlaceSelection',
+    workAtHomeStart: 'workAtHomeStart',
+    toOfficeRoad: 'toOfficeRoad',
+
+    mercedes: 'mercedes',
 };
 
 export const FIRST_SCENE = SCENES.greeting;
