@@ -3,7 +3,8 @@
     <div class="control-panel">
         <span class="autor"> </span>
         <div class="panel">
-            <div id="typewriter" />
+            <div v-if="!skipTypeWriter" id="typewriter" />
+            <div v-else>{{ text }}</div>
             <div class="actions" :class="{ hide: !showActions }">
                 <div class="left"></div>
                 <div class="center">
@@ -50,6 +51,7 @@ export default {
         return {
             nextSceneId: null,
             showActions: false,
+            skipTypeWriter: false,
         };
     },
     methods: {
@@ -63,8 +65,19 @@ export default {
         goToNextScene(scene) {
             this.$emit('changeScene', scene);
         },
+        skipTypeWriterEffect() {
+            this.skipTypeWriter = true;
+            this.showActions = true;
+        },
+        skipTypeWriterEffectOnSpace(event) {
+            if (event.code === 'Space') {
+                this.skipTypeWriterEffect();
+            }
+        },
     },
     mounted() {
+        document.addEventListener('keyup', this.skipTypeWriterEffectOnSpace);
+
         const writer = new Typewriter('#typewriter', {
             autoStart: true,
             delay: 65,
@@ -77,6 +90,9 @@ export default {
                 this.showActions = true;
             })
             .start();
+    },
+    beforeUnmount() {
+        document.removeEventListener('keyup', this.skipTypeWriterEffectOnSpace);
     },
     computed: {
         nextAction() {
