@@ -4,3 +4,7 @@ export const IMAGE = {
     SHOWER: null,
     OFFICE: 'office.jpg',
 };
+
+export const VIDEO = {
+    DIRECTED_BY_ROBERT: 'endgame.mp4',
+};

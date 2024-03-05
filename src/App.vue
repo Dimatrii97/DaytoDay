@@ -1,8 +1,18 @@
 <template>
+    <!-- Так, зачем ты открыла инспектор, ну ка выйди, мне стыдно за свой говнокод...
+        С 8 марта, счастья здоровья, меньше работы, больше денег -->
     <div>
         <div class="music">
-            <MusicOn v-if="enableMusic" class="icon" @click="enableMusic = false" />
-            <MusicOff v-else class="icon" @click="enableMusic = true" />
+            <MusicOn
+                v-if="enableMusic"
+                class="icon"
+                @click="enableMusic = false"
+            />
+            <MusicOff
+                v-else
+                class="icon"
+                @click="enableMusic = true"
+            />
         </div>
         <VScene
             :key="currentSceneId"
@@ -16,6 +26,7 @@
 import MusicOff from './components/music/music-off.vue';
 import MusicOn from './components/music/music-on.vue';
 import VScene from './components/scene_type/VScene.vue';
+import { VIDEO } from './scenes/background';
 import { FIRST_SCENE } from './scenes/constants';
 import { DEFAULT_NEXT_ACTION_ID, RESTART_ACTION_ID, NEXT_SCENE_TRANSITION, SCENE_GRAPH } from './scenes/scene_graph';
 
@@ -68,6 +79,14 @@ export default {
                 this.audio.pause();
             }
         },
+        currentScene: {
+            deep: true,
+            handler(value) {
+                if (value.scene === VIDEO.DIRECTED_BY_ROBERT) {
+                    this.enableMusic = false;
+                }
+            },
+        },
     },
 };
 </script>
@@ -83,12 +102,12 @@ export default {
     width: 5vw;
     height: 5vh;
     z-index: 5;
-    background: rgba(white, .2);
+    background: rgba(white, 0.2);
     border-radius: 50px;
     cursor: pointer;
 
     :hover {
-        background: rgba(black, .1);
+        background: rgba(black, 0.1);
     }
 
     .icon {

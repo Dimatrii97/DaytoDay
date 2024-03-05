@@ -1,5 +1,5 @@
 import { SCENES, TYPE } from './constants';
-import { IMAGE } from './background';
+import { IMAGE, VIDEO } from './background';
 import { PERSON } from './person';
 
 const nextAlarmAction = currentScene => {
@@ -45,6 +45,13 @@ export const END_GAME_ACTIONS = [
     { text: 'Заново', nextScene: RESTART_ACTION_ID },
 ];
 
+const END_GAME_SCENE = {
+    text: 'Блять... Так, в этой игре сто процентов несколько концовок, пойду перепройду',
+    actions: END_GAME_ACTIONS,
+    scene: VIDEO.DIRECTED_BY_ROBERT,
+    type: TYPE.video,
+};
+
 export const SCENE_GRAPH = {
     [SCENES.greeting]: {
         person: null,
@@ -85,11 +92,7 @@ export const SCENE_GRAPH = {
         type: TYPE.text,
     },
     [SCENES.alarmEndGame]: {
-        person: null,
-        actions: END_GAME_ACTIONS,
-        scene: IMAGE.ALARM,
-        text: 'Блять...',
-        type: TYPE.text,
+        ...END_GAME_SCENE,
     },
 
     // Душ
@@ -101,11 +104,8 @@ export const SCENE_GRAPH = {
         type: TYPE.text,
     },
     [SCENES.showerEndGame]: {
-        person: null,
-        actions: END_GAME_ACTIONS,
-        scene: IMAGE.SHOWER,
+        ...END_GAME_SCENE,
         text: 'Вы уволены.',
-        type: TYPE.text,
     },
 };
 

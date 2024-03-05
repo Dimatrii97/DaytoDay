@@ -18,5 +18,6 @@ export const SCENES = {
 };
 
 export const FIRST_SCENE = SCENES.greeting;
+// export const FIRST_SCENE = SCENES.alarm930;
 
 export const ALARM_SCENES = [SCENES.alarm800, SCENES.alarm830, SCENES.alarm900, SCENES.alarm930, SCENES.alarmEndGame];

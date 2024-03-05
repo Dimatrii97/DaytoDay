@@ -1,4 +1,5 @@
 <template>
+    <!-- Дима л... лучший разработчик CRM B2B! -->
     <div class="control-panel">
         <span class="autor"> </span>
         <div class="panel">
