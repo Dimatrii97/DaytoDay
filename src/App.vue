@@ -77,10 +77,14 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
+    margin: 10px;
+    min-width: 40px;
+    min-height: 40px;
     width: 5vw;
     height: 5vh;
     z-index: 5;
-    background: rgba(black, .3);
+    background: rgba(white, .2);
+    border-radius: 50px;
     cursor: pointer;
 
     :hover {
