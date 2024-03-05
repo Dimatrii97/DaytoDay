@@ -29,8 +29,10 @@ import VScene from './components/scene_type/VScene.vue';
 import { VIDEO } from './scenes/background';
 import { FIRST_SCENE } from './scenes/constants';
 import { DEFAULT_NEXT_ACTION_ID, RESTART_ACTION_ID, NEXT_SCENE_TRANSITION, SCENE_GRAPH } from './scenes/scene_graph';
+import { randomBoolean } from './util';
 
 const music = require('@/assets/music/never_gonna_give_you_up.mp4');
+const secondMusic = require('@/assets/music/fruhling_in_paris.mp3');
 
 export default {
     name: 'App',
@@ -47,7 +49,8 @@ export default {
         };
     },
     mounted() {
-        this.audio = new Audio(music);
+        const audio = randomBoolean(0.1) ? secondMusic : music;
+        this.audio = new Audio(audio);
         this.audio.volume = 0.1;
         this.audio.play();
     },
