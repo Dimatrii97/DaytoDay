@@ -4,12 +4,13 @@
             class="background"
             :style="{ backgroundImage: createBackgroundUrl(backgroundUrl) }"
         >
-            <div
-                v-if="person"
-                class="person"
-                :class="[personPosition]"
-                :style="{ backgroundImage: createBackgroundUrl(personUrl) }"
-            />
+            <div v-if="person" class="person-container">
+                <div
+                    class="person"
+                    :class="[personPosition]"
+                    :style="{ backgroundImage: createBackgroundUrl(personUrl) }"
+                />
+            </div>
             <ControlPanel
                 :text="scene.text"
                 :actions="scene.actions"
@@ -74,9 +75,32 @@ export default {
     }
 }
 
-.person {
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
+.person-container {
+    height: 80vh;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+    .person {
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 100%;
+        width: 60vw;
+
+        &.center {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &.left {
+            margin-right: auto;
+        }
+
+        &.right {
+            margin-left: auto;
+        }
+    }
 }
 </style>

@@ -94,7 +94,6 @@ export default {
     right: 0;
     bottom: 0;
     width: 90vw;
-    height: 10vw;
     color: white;
     font-size: 20px;
 }
@@ -103,7 +102,11 @@ export default {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
-    padding: 30px 50px;
+    padding: 20px 50px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .actions {
