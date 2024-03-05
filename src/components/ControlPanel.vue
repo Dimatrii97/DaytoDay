@@ -3,15 +3,8 @@
     <div class="control-panel">
         <span class="autor"> </span>
         <div class="panel">
-            <vue-typewriter-effect
-                :key="text"
-                :strings="text"
-                :delay="65"
-                cursor=""
-                :loop="false"
-            />
-            <!-- // TODO: анимация появление экшнов после текста -->
-            <div class="actions">
+            <div id="typewriter" />
+            <div class="actions" :class="{ hide: !showActions }">
                 <div class="left"></div>
                 <div class="center">
 
@@ -35,6 +28,7 @@
 </template>
 
 <script>
+import Typewriter from 'typewriter-effect/dist/core';
 import { NEXT_ACTION } from '@/scenes/scene_graph';
 import { DEFAULT_NEXT_ACTION_ID } from '../scenes/scene_graph';
 
@@ -55,6 +49,7 @@ export default {
     data() {
         return {
             nextSceneId: null,
+            showActions: false,
         };
     },
     methods: {
@@ -70,7 +65,18 @@ export default {
         },
     },
     mounted() {
-        this.write();
+        const writer = new Typewriter('#typewriter', {
+            autoStart: true,
+            delay: 65,
+        });
+
+        writer
+            .typeString(this.text)
+            .pauseFor(300)
+            .callFunction(() => {
+                this.showActions = true;
+            })
+            .start();
     },
     computed: {
         nextAction() {
@@ -84,8 +90,8 @@ export default {
         // Если изменился текст, значит другая сцена
         text() {
             this.nextScene = null;
-        }
-    }
+        },
+    },
 };
 </script>
 
@@ -113,6 +119,14 @@ export default {
 .actions {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+
+    &.hide {
+        opacity: 0;
+
+        button {
+            cursor: default;
+        }
+    }
 
     .right {
         justify-self: end;

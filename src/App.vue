@@ -51,6 +51,7 @@ export default {
     mounted() {
         const audio = randomBoolean(0.1) ? secondMusic : music;
         this.audio = new Audio(audio);
+        this.audio.loop = true;
         this.audio.volume = 0.1;
         this.audio.play();
     },
