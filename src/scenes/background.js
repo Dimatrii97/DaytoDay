@@ -36,6 +36,7 @@ export const VIDEO = {
     DENIS_MONTAGER: loadVideo('denis_montager.mp4'),
     FLOWERS_ARE_GIFT: loadVideo('endgame.mp4'),
     EATING_FLOWERS: loadVideo('endgame.mp4'),
+    MATTERMOST_CONGRATULATIONS: loadVideo('mattermost_congratulations.mp4'),
 };
 
 export const GAME = {

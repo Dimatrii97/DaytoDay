@@ -237,9 +237,9 @@ export const getSceneGraph = () => {
         },
         [SCENES.congratulationsInMm]: {
             actions: ACTIONS.congratulationsInMm,
-            scene: IMAGE.HOME_WORKPLACE,
+            scene: VIDEO.MATTERMOST_CONGRATULATIONS,
             text: TEXT.CONGRATULATIONS_IN_MM,
-            type: TYPE.text,
+            type: TYPE.video,
         },
         [SCENES.internetWentDown]: {
             actions: ACTIONS.internetWentDown,
