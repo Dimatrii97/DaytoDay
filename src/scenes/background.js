@@ -34,6 +34,7 @@ export const VIDEO = {
     DIRECTED_BY_ROBERT: loadVideo('endgame.mp4'),
     TIMA_IN_SHOWER: loadVideo('tima_in_shower.mp4'),
     DENIS_MONTAGER: loadVideo('denis_montager.mp4'),
+    BREAK_FEST: loadVideo('zavtrak.mp4'),
 
     OFFER_FLOWERS: loadVideo('dima-podarok-cvetok2.mp4'),
     FLOWERS_ARE_GIFT: loadVideo('dima-vrychenie-cvetka.mp4'),

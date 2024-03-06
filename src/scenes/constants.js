@@ -21,6 +21,7 @@ export const SCENES = {
     showerEndGame: 'showerEndGame',
 
     willYouEat: 'willYouEat',
+    breakFestFromSasha: 'breakFestFromSasha',
     breakFestSelection: 'breakFestSelection',
 
     workPlaceSelection: 'workPlaceSelection',

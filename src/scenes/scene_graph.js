@@ -49,7 +49,7 @@ const getActions = () => {
         breakFestSelection: [
             { text: BUTTONS.BREAKFEST_SELECTION.BEER, nextScene: SCENES.workPlaceSelection },
             // TODO: вероятно, тут нужен переход к видосику, где Саша готовит трешовый завтрак
-            { text: BUTTONS.BREAKFEST_SELECTION.TRASH, nextScene: SCENES.workPlaceSelection },
+            { text: BUTTONS.BREAKFEST_SELECTION.TRASH, nextScene: SCENES.breakFestFromSasha },
         ],
         workPlaceSelection: [
             { text: 'Офис', nextScene: SCENES.toOfficeRoad },
@@ -259,6 +259,11 @@ export const getSceneGraph = () => {
             scene: IMAGE.KITCHEN,
             text: TEXT.BREAKFEST_SELECTION,
             type: TYPE.text,
+        },
+        [SCENES.breakFestFromSasha]: {
+            scene: VIDEO.BREAK_FEST,
+            text: '',
+            type: TYPE.video,
         },
 
         // Выбор рабочего места
@@ -563,6 +568,7 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.greeting]: SCENES.alarm800,
     [SCENES.alarm800]: SCENES.goToShower,
     [SCENES.timaInShower]: SCENES.willYouEat,
+    [SCENES.breakFestFromSasha]: SCENES.workPlaceSelection,
     [SCENES.workAtHomeStart]: SCENES.workAtHome,
     [SCENES.workAtHome]: SCENES.meetingAtHome,
     [SCENES.taxi]: SCENES.toOfficeRoad,
