@@ -3,6 +3,7 @@ import { IMAGE, VIDEO, GAME } from './background';
 import { PERSON } from './person';
 import { state } from './state';
 import { getText, getButtons } from './text';
+import { randomItemFromList } from '@/util.js';
 
 const nextAlarmAction = currentScene => {
     if (currentScene === SCENES.alarm800) {
@@ -92,9 +93,7 @@ const getActions = () => {
             { text: 'Принять цветок', nextScene: SCENES.flowersAreGift },
             { text: BUTTONS.FLOWERS_IN_OFFICE.REJECT, nextScene: SCENES.eatFlowers },
         ],
-        flowersAreGift: [
-            { text: 'Спасииибо', nextScene: SCENES.goToWorkPlaceInOffice },
-        ],
+        flowersAreGift: [{ text: 'Спасииибо', nextScene: SCENES.goToWorkPlaceInOffice }],
         vodkaAsGift: [{ text: BUTTONS.VODKA_AS_GIFT.NEXT, nextScene: SCENES.goToWorkPlaceInOffice }],
     };
 };
@@ -115,30 +114,32 @@ const workInOfficeParams = () => {
         {
             name: NPC.NIKOLAI,
             person: PERSON.KOLYA_STAND,
-            text: 'Привет, не хочешь поболтать?',
+            text: 'Привет! Как дела?',
+            answer: 'Хорошо. У тебя как?',
             nextScene: SCENES.talkWithKolya,
         },
         {
             name: NPC.DENIS,
             person: PERSON.DENIS_K_GREETINGS,
-            text: 'Ыыы Привет, не хочешь поболтать?',
+            text: 'Ой, привет! Ну надо же, совсем не ожидал встретить тебя здесь!',
             nextScene: SCENES.talkWithDenis,
+            answer: 'Привет!',
         },
         {
             name: NPC.DIMA,
             person: PERSON.DIMA_HELLO,
-            text: 'Ууу Привет, не хочешь поболтать?',
+            text: 'Привет!',
             nextScene: SCENES.talkWithDima,
+            answer: 'Привет! Есть вопрос...',
         },
         {
             name: NPC.ANDREY,
-            person: PERSON.ANDREY_HELLO,
-            text: 'ЭЭэ Привет, не хочешь поболтать?',
+            person: PERSON.ANDREY_TALKING,
+            text: 'О, привет! Слушай, хочешь историю? Вот недавно был у стоматолога, это был поздний вечер и последний приём стоматолога.',
             nextScene: SCENES.talkWithAndrey,
+            answer: 'Так! А дальше?',
         },
     ].filter(it => !state.talkedWithNpc(it.name));
-
-    console.log({ state, npcList });
 
     if (state.talkedWithAllNpc) {
         return {
@@ -146,7 +147,7 @@ const workInOfficeParams = () => {
         };
     }
 
-    const currentNpc = npcList[0];
+    const currentNpc = randomItemFromList(npcList);
 
     const callback = () => state.talkWithNpc(currentNpc.name);
 
@@ -157,7 +158,7 @@ const workInOfficeParams = () => {
         },
         actions: [
             { text: 'Работать', nextScene: SCENES.workInOffice, callback },
-            { text: 'Поболтать', nextScene: currentNpc.nextScene, callback },
+            { text: currentNpc.answer, nextScene: currentNpc.nextScene, callback },
         ],
     };
 };
@@ -388,37 +389,172 @@ export const getSceneGraph = () => {
             scene: IMAGE.OFFICE,
             type: TYPE.text,
         },
+
+        // Коля
         [SCENES.talkWithKolya]: {
+            person: {
+                url: PERSON.KOLYA_800,
+            },
+            actions: [{ ...NEXT_ACTION, text: 'Что она?' }],
+            scene: IMAGE.OFFICE,
+            text: 'Нормально. А ты знала, что Евлампия из бухгалтерии...',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithKolya2]: {
+            person: {
+                url: PERSON.KOLYA_641,
+            },
+            actions: [{ ...NEXT_ACTION, text: 'Да лааадно, опять!?' }],
+            scene: IMAGE.OFFICE,
+            text: 'Уехала в отпуск!',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithKolya3]: {
+            person: {
+                url: PERSON.KOLYA_030,
+            },
+            actions: [{ ...NEXT_ACTION }],
+            scene: IMAGE.OFFICE,
+            text: 'ДА-ДА...',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithKolya3]: {
+            person: {
+                url: PERSON.KOLYA_318,
+            },
+            actions: [{ ...NEXT_ACTION, text: 'Какой кошмар!' }],
+            scene: IMAGE.OFFICE,
+            text: 'Я к ней сегодня снова пришел, а её нет на месте!',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithKolya4]: {
             person: {
                 url: PERSON.KOLYA_TALKING,
             },
+            actions: [{ ...NEXT_ACTION, text: 'Спасибо' }],
             scene: IMAGE.OFFICE,
-            text: 'Йоу йоу йоу. Хорошо поболтали?',
+            text: 'Да, но это всё неважно, потому что сегодня особый день. Поздравляю тебя с 8 Марта! Пусть в твоей душе всегда будет весна, лёгкость и красота. Желаю тебе хорошего настроения и кучу незабываемых впечатлений!',
             type: TYPE.text,
         },
+        [SCENES.talkWithKolya5]: {
+            person: {
+                url: PERSON.KOLYA_624,
+            },
+            actions: [{ ...NEXT_ACTION }],
+            scene: IMAGE.OFFICE,
+            text: 'Ну ладно, пока, хорошего тебе дня!',
+            type: TYPE.text,
+        },
+
+        // Андрей
         [SCENES.talkWithAndrey]: {
             person: {
-                url: PERSON.ANDREY_TALKING,
+                url: PERSON.ANDREY_2,
             },
             scene: IMAGE.OFFICE,
-            text: 'Йоу йоу йоу. Хорошо поболтали?',
+            text:
+                'Я вышел из кабинета и увидел мужчину с очень обеспокоенным видом, он зашел сразу после меня. Я слышал их разговор через открытую дверь, женщина сказала ему:\n' +
+                '- Мужчина, я уже ухожу, вы вообще записывались!?',
+            actions: [{ ...NEXT_ACTION, text: 'Ага, а он что!?' }],
             type: TYPE.text,
         },
+        [SCENES.talkWithAndrey2]: {
+            person: {
+                url: PERSON.ANDREY_3,
+            },
+            scene: IMAGE.OFFICE,
+            text:
+                'Он промолчал, а она сказала:\n' +
+                '- Ладно, у вас очень обеспокоенный вид. Говорите, что случилось - может быть отвечу, пока собираюсь.',
+            actions: [{ ...NEXT_ACTION, text: 'Что с ним?' }],
+            type: TYPE.text,
+        },
+        [SCENES.talkWithAndrey3]: {
+            person: {
+                url: PERSON.ANDREY_HELLO,
+            },
+            scene: IMAGE.OFFICE,
+            text:
+                'И мужчина сказал: Доктор, помогите! Мне кажется, что я мотылёк...\n' +
+                'Доктор: Вам кажется, что вы мотылек? Тогда вы не по адресу - вам к психиатру, а я стоматолог, вы вообще видели вывеску на дверях?\n' +
+                'Мужчина: Видел',
+            actions: [{ ...NEXT_ACTION, text: 'Ага..' }],
+            type: TYPE.text,
+        },
+        [SCENES.talkWithAndrey4]: {
+            person: {
+                url: PERSON.ANDREY_5,
+            },
+            scene: IMAGE.OFFICE,
+            text: 'Доктор: Тогда почему вы зашли?\n' + 'Мужчина: Потому что свет был включен',
+            actions: [{ ...NEXT_ACTION, text: 'Хааа!' }],
+            type: TYPE.text,
+        },
+
+        // Денис
         [SCENES.talkWithDenis]: {
+            person: {
+                url: PERSON.DENIS_K_1,
+            },
+            actions: [{ ...NEXT_ACTION, text: 'Ой, и не знаю..' }],
+            scene: IMAGE.OFFICE,
+            text: 'И почему здесь сегодня так много наших девушек?.. Может быть этому есть какая-то причина?..',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithDenis2]: {
+            person: {
+                url: PERSON.DENIS_K_3,
+            },
+            actions: [{ ...NEXT_ACTION, text: 'Ой, как мило!' }],
+            scene: IMAGE.OFFICE,
+            text: 'Ну точно, сегодня же праздник! От души поздравляю!',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithDenis3]: {
             person: {
                 url: PERSON.DENIS_K_TALKING,
             },
+            actions: [{ ...NEXT_ACTION, text: 'Спасибо! :)' }],
             scene: IMAGE.OFFICE,
-            text: 'Йоу йоу йоу. Хорошо поболтали?',
+            text: 'Комплименты излишни, ты и так всегда супер!',
             type: TYPE.text,
         },
+
         [SCENES.talkWithDima]: {
+            person: {
+                url: PERSON.DIMA_3,
+            },
+            scene: IMAGE.OFFICE,
+            text: 'О, это по сделке N20240308? Да, я там посмотрел - баг выглядит как несложный в исправлении, но есть свои нюансы..',
+            type: TYPE.text,
+            actions: [{ ...NEXT_ACTION, text: 'Какие?' }],
+        },
+        [SCENES.talkWithDima2]: {
+            person: {
+                url: PERSON.DIMA_4,
+            },
+            scene: IMAGE.OFFICE,
+            text: 'Да какая разница!? Сейчас важнее другое: я поздравляю тебя с 8 Марта! Оставайся такой же замечательной и неповторимой! ',
+            type: TYPE.text,
+            actions: [{ ...NEXT_ACTION, text: 'Как рада это слышать!' }],
+        },
+        [SCENES.talkWithDima3]: {
+            person: {
+                url: PERSON.DIMA_STICKER,
+            },
+            scene: IMAGE.OFFICE,
+            text: 'Пусть в твоём доме всегда будут спокойствие и уют, твоя жизнь будет такой же прекрасной как ты, а тебя окружают только самые лучшие люди!',
+            type: TYPE.text,
+            actions: [{ ...NEXT_ACTION, text: 'Мне очень приятно :)' }],
+        },
+        [SCENES.talkWithDima4]: {
             person: {
                 url: PERSON.DIMA_TALKING,
             },
             scene: IMAGE.OFFICE,
-            text: 'Йоу йоу йоу. Хорошо поболтали?',
+            text: 'Ладно, я пойду, а ты отдыхай! ',
             type: TYPE.text,
+            actions: [{ ...NEXT_ACTION }],
         },
     };
 };
@@ -440,8 +576,23 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.vodkaAsGift]: SCENES.goToWorkPlaceInOffice,
     [SCENES.goToWorkPlaceInOffice]: SCENES.workInOffice,
 
-    [SCENES.talkWithKolya]: SCENES.workInOffice,
-    [SCENES.talkWithAndrey]: SCENES.workInOffice,
-    [SCENES.talkWithDima]: SCENES.workInOffice,
-    [SCENES.talkWithDenis]: SCENES.workInOffice,
+    [SCENES.talkWithKolya]: SCENES.talkWithKolya2,
+    [SCENES.talkWithKolya2]: SCENES.talkWithKolya3,
+    [SCENES.talkWithKolya3]: SCENES.talkWithKolya4,
+    [SCENES.talkWithKolya4]: SCENES.talkWithKolya5,
+    [SCENES.talkWithKolya5]: SCENES.workInOffice,
+
+    [SCENES.talkWithAndrey]: SCENES.talkWithAndrey2,
+    [SCENES.talkWithAndrey2]: SCENES.talkWithAndrey3,
+    [SCENES.talkWithAndrey3]: SCENES.talkWithAndrey4,
+    [SCENES.talkWithAndrey4]: SCENES.workInOffice,
+
+    [SCENES.talkWithDima]: SCENES.talkWithDima2,
+    [SCENES.talkWithDima2]: SCENES.talkWithDima3,
+    [SCENES.talkWithDima3]: SCENES.talkWithDima4,
+    [SCENES.talkWithDima4]: SCENES.workInOffice,
+
+    [SCENES.talkWithDenis]: SCENES.talkWithDenis2,
+    [SCENES.talkWithDenis2]: SCENES.talkWithDenis3,
+    [SCENES.talkWithDenis3]: SCENES.workInOffice,
 };

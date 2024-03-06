@@ -3,8 +3,8 @@
     <div class="control-panel">
         <span class="autor"> </span>
         <div class="panel">
-            <div v-if="!skipTypeWriter" id="typewriter" />
-            <div v-else>{{ text }}</div>
+            <div v-if="!skipTypeWriter" class="text" id="typewriter" />
+            <div class="text" v-else>{{ text }}</div>
             <div class="actions" :class="{ hide: !showActions }">
                 <div class="left"></div>
                 <div class="center">
@@ -140,6 +140,10 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    .text {
+        white-space: pre-line;
+    }
 }
 
 .actions {

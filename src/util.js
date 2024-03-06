@@ -5,3 +5,10 @@ export function randomBoolean(probability = .5) {
 export function createBackgroundUrl(url) {
     return `url(${url})`;
 }
+
+export function randomItemFromList(list) {
+    const itemIdx = Math.floor(Math.random() * list.length);
+    const item = list[itemIdx];
+    list.splice(itemIdx, 1);
+    return item;
+}

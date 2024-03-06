@@ -51,9 +51,29 @@ export const SCENES = {
     vodkaAsGift: 'vodkaAsGift',
 
     talkWithKolya: 'talkWithKolya',
+    talkWithKolya2: 'talkWithKolya2',
+    talkWithKolya3: 'talkWithKolya3',
+    talkWithKolya4: 'talkWithKolya4',
+    talkWithKolya5: 'talkWithKolya5',
+    talkWithKolya6: 'talkWithKolya6',
+    talkWithKolya7: 'talkWithKolya7',
+
     talkWithDenis: 'talkWithDenis',
+    talkWithDenis2: 'talkWithDenis2',
+    talkWithDenis3: 'talkWithDenis3',
+    talkWithDenis4: 'talkWithDenis4',
+
     talkWithDima: 'talkWithDima',
+    talkWithDima2: 'talkWithDima2',
+    talkWithDima3: 'talkWithDima3',
+    talkWithDima4: 'talkWithDima4',
+    talkWithDima5: 'talkWithDima5',
+
     talkWithAndrey: 'talkWithAndrey',
+    talkWithAndrey2: 'talkWithAndrey2',
+    talkWithAndrey3: 'talkWithAndrey3',
+    talkWithAndrey4: 'talkWithAndrey4',
+    talkWithAndrey5: 'talkWithAndrey5',
 };
 
 export const FIRST_SCENE = SCENES.greeting;
