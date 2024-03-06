@@ -16,7 +16,7 @@ export const IMAGE = {
     morning830: loadBackground('morning830.jpg'),
     morning1030: loadBackground('morning1030.jpg'),
     HOME: loadBackground('home.webp'),
-    HOME_WORKPLACE: loadBackground('home_workplace.png'),
+    HOME_WORKPLACE: loadBackground('home_workplace.jpg'),
     SHOWER: loadBackground('shower.jpg'),
     OFFICE: loadBackground('office.jpg'),
     KITCHEN: loadBackground('kitchen.jpg'),
