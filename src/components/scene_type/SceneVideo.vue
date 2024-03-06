@@ -42,7 +42,7 @@ export default {
     },
     computed: {
         video() {
-            return require('@/assets/video/' + this.scene.scene);
+            return this.scene.scene;
         },
     },
     methods: {

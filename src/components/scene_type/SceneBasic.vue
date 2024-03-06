@@ -56,7 +56,7 @@ export default {
             return require('@/assets/img/person/' + this.person.url);
         },
         backgroundUrl() {
-            return require('@/assets/img/back/' + this.backgroundImage);
+            return this.backgroundImage;
         },
     },
     methods: {

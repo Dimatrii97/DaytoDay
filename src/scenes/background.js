@@ -1,17 +1,29 @@
+const loadBackground = fileName => {
+    return require('@/assets/img/back/' + fileName);
+};
+
+const loadVideo = fileName => {
+    return require('@/assets/video/' + fileName);
+};
+
+// const loadPerson = fileName => {
+//     return require('@/assets/img/person/' + fileName);
+// };
+
 export const IMAGE = {
     GREETING: null,
-    morning630: 'morning630.jpg',
-    morning830: 'morning830.jpg',
-    morning1030: 'morning1030.jpg',
-    HOME: 'home.webp',
-    HOME_WORKPLACE: 'home_workplace.png',
-    SHOWER: 'shower.jpg',
-    OFFICE: 'office.jpg',
-    KITCHEN: 'kitchen.jpg',
+    morning630: loadBackground('morning630.jpg'),
+    morning830: loadBackground('morning830.jpg'),
+    morning1030: loadBackground('morning1030.jpg'),
+    HOME: loadBackground('home.webp'),
+    HOME_WORKPLACE: loadBackground('home_workplace.png'),
+    SHOWER: loadBackground('shower.jpg'),
+    OFFICE: loadBackground('office.jpg'),
+    KITCHEN: loadBackground('kitchen.jpg'),
 };
 
 export const VIDEO = {
-    DIRECTED_BY_ROBERT: 'endgame.mp4',
-    TIMA_IN_SHOWER: 'tima_in_shower.mp4',
-    DENIS_MONTAGER: 'denis_montager.mp4',
+    DIRECTED_BY_ROBERT: loadVideo('endgame.mp4'),
+    TIMA_IN_SHOWER: loadVideo('tima_in_shower.mp4'),
+    DENIS_MONTAGER: loadVideo('denis_montager.mp4'),
 };
