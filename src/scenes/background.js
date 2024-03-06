@@ -18,19 +18,26 @@ export const IMAGE = {
     HOME: loadBackground('home.webp'),
     HOME_WORKPLACE: loadBackground('home_workplace.jpg'),
     SHOWER: loadBackground('shower.jpg'),
-    OFFICE: loadBackground('office.jpg'),
     KITCHEN: loadBackground('kitchen.jpg'),
+
     BAD_WEATHER: loadBackground('bad_weather.webp'),
     PONY: loadBackground('pony.webp'),
     MERCEDES: loadBackground('mercedes.webp'),
+
+    OFFICE_OPEN_DOOR: loadBackground('office_open_door.webp'),
+    OFFICE_GUARD: loadBackground('office_guard.webp'),
+    OFFICE: loadBackground('office.jpg'),
+    VODKA_AS_GIFT: loadBackground('vodka_as_gift.webp'),
 };
 
 export const VIDEO = {
     DIRECTED_BY_ROBERT: loadVideo('endgame.mp4'),
     TIMA_IN_SHOWER: loadVideo('tima_in_shower.mp4'),
     DENIS_MONTAGER: loadVideo('denis_montager.mp4'),
+    FLOWERS_ARE_GIFT: loadVideo('endgame.mp4'),
+    EATING_FLOWERS: loadVideo('endgame.mp4'),
 };
 
 export const GAME = {
-    JIRA: null
-}
+    JIRA: null,
+};

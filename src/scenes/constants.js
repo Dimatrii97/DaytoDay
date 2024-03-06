@@ -1,11 +1,12 @@
 export const TYPE = {
     text: 'text',
     video: 'video',
-    game: 'game'
+    game: 'game',
 };
 
 export const SCENES = {
-    endGame: 'endGame',
+    failGame: 'failGame',
+    happyEndGame: 'happyEndGame',
 
     greeting: 'greeting',
 
@@ -40,6 +41,13 @@ export const SCENES = {
     mercedes: 'mercedes',
 
     enterOffice: 'enterOffice',
+    officeOpenDoor: 'officeOpenDoor',
+    flowersInOffice: 'flowersInOffice',
+    flowersAreGift: 'flowersAreGift',
+    eatFlowers: 'eatFlowers',
+
+    workInOffice: 'workInOffice',
+    vodkaAsGift: 'vodkaAsGift',
 };
 
 export const FIRST_SCENE = SCENES.greeting;

@@ -80,12 +80,22 @@ const getActions = () => {
             { text: 'Поехать в офис', nextScene: SCENES.toOfficeRoad },
         ],
         masterFixTheInternet: [
-            { text: 'Остаться дома', nextScene: SCENES.endGame },
+            { text: 'Остаться дома', nextScene: SCENES.happyEndGame },
             { text: 'Поехать в офис', nextScene: SCENES.toOfficeRoad },
         ],
 
         mercedes: [
             { text: 'Как мило. Давай)', nextScene: SCENES.enterOffice },
+        ],
+        office_guard: [
+            { text: 'Спасибо :)', nextScene: SCENES.officeOpenDoor },
+        ],
+        flowersInOffice: [
+            { text: 'Принять цветок', nextScene: SCENES.flowersAreGift },
+            { text: 'Пусть съест', nextScene: SCENES.eatFlowers },
+        ],
+        vodkaAsGift: [
+            { text: BUTTONS.VODKA_AS_GIFT, nextScene: SCENES.workInOffice },
         ],
     };
 };
@@ -111,10 +121,20 @@ export const getSceneGraph = () => {
         type: TYPE.video,
     };
 
+    const HAPPY_ENDING = {
+        text: TEXT.HAPPY_END,
+        actions: END_GAME_ACTIONS,
+        scene: VIDEO.DIRECTED_BY_ROBERT,
+        type: TYPE.video,
+    };
+
     return {
-        [SCENES.endGame]: {
+        [SCENES.failGame]: {
             ...END_GAME_SCENE,
             text: TEXT.FIRING,
+        },
+        [SCENES.happyEndGame]: {
+            ...HAPPY_ENDING,
         },
 
         [SCENES.greeting]: {
@@ -268,6 +288,51 @@ export const getSceneGraph = () => {
             text: TEXT.MERCEDES,
             type: TYPE.text,
         },
+
+        // Офис
+        [SCENES.enterOffice]: {
+            actions: ACTIONS.office_guard,
+            scene: IMAGE.OFFICE_GUARD,
+            text: TEXT.OFFICE_GUARD,
+            type: TYPE.text,
+        },
+        [SCENES.officeOpenDoor]: {
+            actions: ACTIONS.officeOpenDoor,
+            scene: IMAGE.OFFICE_OPEN_DOOR,
+            text: TEXT.OFFICE_OPEN_DOOR,
+            type: TYPE.text,
+        },
+        [SCENES.flowersInOffice]: {
+            person: {
+                url: 'denis/denis_k_greetings.webp',
+            },
+            actions: ACTIONS.flowersInOffice,
+            scene: IMAGE.OFFICE,
+            text: TEXT.FLOWERS_IN_OFFICE,
+            type: TYPE.text,
+        },
+        [SCENES.flowersAreGift]: {
+            scene: VIDEO.FLOWERS_ARE_GIFT,
+            text: '',
+            type: TYPE.video,
+        },
+        [SCENES.eatFlowers]: {
+            scene: VIDEO.EATING_FLOWERS,
+            text: '',
+            type: TYPE.video,
+        },
+        [SCENES.vodkaAsGift]: {
+            scene: IMAGE.VODKA_AS_GIFT,
+            text: 'Теперь вместо цветов для тебя подарок еще лучше!',
+            type: TYPE.text,
+        },
+
+        [SCENES.workInOffice]: {
+            actions: [],
+            scene: IMAGE.OFFICE,
+            text: '',
+            type: TYPE.text,
+        },
     };
 };
 
@@ -281,4 +346,9 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.pony]: SCENES.toOfficeRoad,
     [SCENES.walking]: SCENES.toOfficeRoad,
     [SCENES.random]: SCENES.toOfficeRoad,
+
+    [SCENES.officeOpenDoor]: SCENES.flowersInOffice,
+    [SCENES.flowersAreGift]: SCENES.workInOffice,
+    [SCENES.eatFlowers]: SCENES.vodkaAsGift,
+    [SCENES.vodkaAsGift]: SCENES.workInOffice,
 };
