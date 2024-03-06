@@ -30,6 +30,10 @@
                         Взрослый
                     </button>
                 </div>
+                TODO: УДАЛИТЬ БЛЯТЬ
+                <select v-model="currentSceneId">
+                    <option v-for="scene in scenes" :key="scene">{{ scene }}</option>
+                </select>
             </div>
         </div>
         <VScene
@@ -46,7 +50,7 @@ import MusicOff from './components/music/music-off.vue';
 import MusicOn from './components/music/music-on.vue';
 import VScene from './components/scene_type/VScene.vue';
 // import { VIDEO } from './scenes/background';
-import { FIRST_SCENE, TYPE } from './scenes/constants';
+import { FIRST_SCENE, SCENES, TYPE } from './scenes/constants';
 import { DEFAULT_NEXT_ACTION_ID, RESTART_ACTION_ID, NEXT_SCENE_TRANSITION, getSceneGraph } from './scenes/scene_graph';
 import { randomBoolean } from './util';
 import { state } from './scenes/state';
@@ -65,6 +69,7 @@ export default {
     },
     data() {
         return {
+            scenes: Object.values(SCENES),
             started: false,
             currentSceneId: FIRST_SCENE,
             enableMusicForUser: true,
@@ -78,7 +83,6 @@ export default {
         this.audio.loop = true;
         this.audio.volume = 0.1;
         this.audio.play();
-        this.audio.play();
     },
     computed: {
         currentScene() {
@@ -91,6 +95,8 @@ export default {
     },
     methods: {
         startGame(mode) {
+            this.audio.play();
+
             if (mode === 'adult') {
                 state.isAdult = true;
             } else {
@@ -99,8 +105,8 @@ export default {
 
             this.started = true;
         },
-        changeScene({ nextScene, text }) {
-            state.handleScene({ nextScene, text });
+        changeScene({ nextScene, text, callback }) {
+            state.handleScene({ nextScene, text, callback });
 
             if (nextScene === DEFAULT_NEXT_ACTION_ID) {
                 this.currentSceneId = NEXT_SCENE_TRANSITION[this.currentSceneId];
@@ -112,6 +118,11 @@ export default {
                 state.resetState();
                 this.started = false;
                 return;
+            }
+
+            // NOTE: ебучий костыль, чтобы перезагружалась сцена, когда id не изменился
+            if (this.currentSceneId === nextScene) {
+                this.currentSceneId = null;
             }
 
             this.currentSceneId = nextScene;

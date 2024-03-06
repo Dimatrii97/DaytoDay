@@ -48,6 +48,11 @@ export const SCENES = {
 
     workInOffice: 'workInOffice',
     vodkaAsGift: 'vodkaAsGift',
+
+    talkWithKolya: 'talkWithKolya',
+    talkWithDenis: 'talkWithDenis',
+    talkWithDima: 'talkWithDima',
+    talkWithAndrey: 'talkWithAndrey',
 };
 
 export const FIRST_SCENE = SCENES.greeting;
@@ -55,3 +60,10 @@ export const FIRST_SCENE = SCENES.greeting;
 
 export const ALARM_SCENES = [SCENES.alarm800, SCENES.alarm830, SCENES.alarm900, SCENES.alarm930, SCENES.alarmEndGame];
 export const TRANSPORT_SCENES = [SCENES.taxi, SCENES.pony, SCENES.walking, SCENES.random];
+
+export const NPC = {
+    NIKOLAI: 'Коля',
+    DIMA: 'Дима',
+    DENIS: 'Денис',
+    ANDREY: 'Андрей',
+};
