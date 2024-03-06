@@ -78,6 +78,7 @@ export default {
         this.audio.loop = true;
         this.audio.volume = 0.1;
         this.audio.play();
+        this.audio.play();
     },
     computed: {
         currentScene() {
@@ -96,12 +97,10 @@ export default {
                 state.isAdult = false;
             }
 
-            console.log('state', state);
-
             this.started = true;
         },
-        changeScene(nextScene) {
-            state.handleScene(nextScene);
+        changeScene({ nextScene, text }) {
+            state.handleScene({ nextScene, text });
 
             if (nextScene === DEFAULT_NEXT_ACTION_ID) {
                 this.currentSceneId = NEXT_SCENE_TRANSITION[this.currentSceneId];

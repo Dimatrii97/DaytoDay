@@ -1,18 +1,23 @@
-import { SCENES } from './constants';
+import { SCENES, TRANSPORT_SCENES } from './constants';
 
 class SceneState {
     #isAdult = false;
 
     #wakeOn930 = false;
+    #selectedTransport = [];
 
     constructor() {
         const params = new URLSearchParams(document.location.search);
         this.#isAdult = params.get('adult') || false;
     }
 
-    handleScene(nextScene) {
+    handleScene({ nextScene, text }) {
         if (nextScene === SCENES.alarm930) {
             this.#wakeOn930 = true;
+        }
+
+        if (TRANSPORT_SCENES.includes(nextScene)) {
+            this.selectTransport(text);
         }
     }
 
@@ -24,6 +29,18 @@ class SceneState {
         return this.#isAdult;
     }
 
+    get allTransportsSelected() {
+        return this.#selectedTransport.length === 4;
+    }
+
+    isTransportSelected(transport) {
+        return this.#selectedTransport.includes(transport);
+    }
+
+    selectTransport(transport) {
+        this.#selectedTransport.push(transport);
+    }
+
     set isAdult(value) {
         this.#isAdult = value;
     }
@@ -31,6 +48,7 @@ class SceneState {
     resetState() {
         this.#wakeOn930 = false;
         this.#isAdult = false;
+        this.#selectedTransport = [];
     }
 }
 
