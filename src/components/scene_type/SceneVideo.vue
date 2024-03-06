@@ -4,6 +4,7 @@
             width="100%"
             height="calc(100% - 1px)"
             autoplay
+            @ended="onEnded"
         >
             <source
                 autoplay
@@ -18,6 +19,7 @@
         </video>
 
         <ControlPanel
+            v-if="showControls"
             :text="scene.text"
             :actions="scene.actions"
             :delay="scene.textDelay"
@@ -41,14 +43,38 @@ export default {
     components: {
         ControlPanel,
     },
+    data() {
+        return {
+            showControls: false,
+        }
+    },
+    mounted() {
+        document.addEventListener('keyup', this.showControlsOnSpace);
+        this.showControls = this.showControlPanelAfterEnding || false;
+    },
+    beforeUnmount() {
+        document.removeEventListener('keyup', this.showControlsOnSpace);
+    },
     computed: {
         video() {
             return this.scene.scene;
+        },
+        showControlPanelAfterEnding() {
+            return this.scene.controlAfterVideoEnds;
         },
     },
     methods: {
         createBackgroundUrl(url) {
             return `url(${url})`;
+        },
+        showControlsOnSpace(event) {
+            if (event.code === 'Space') {
+                this.showControls = true;
+            }
+        },
+        onEnded() {
+            console.log('video ended');
+            this.showControls = true;
         },
     },
 };
