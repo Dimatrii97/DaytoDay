@@ -1,9 +1,14 @@
 import { SCENES } from './constants';
 
 class SceneState {
+    #isAdult = false;
+
     #wakeOn930 = false;
 
-    constructor() {}
+    constructor() {
+        const params = new URLSearchParams(document.location.search);
+        this.#isAdult = params.get('adult') || false;
+    }
 
     handleScene(nextScene) {
         if (nextScene === SCENES.alarm930) {
@@ -13,6 +18,10 @@ class SceneState {
 
     get wakeOn930() {
         return this.#wakeOn930;
+    }
+
+    get isAdultVersion() {
+        return this.#isAdult;
     }
 
     resetState() {

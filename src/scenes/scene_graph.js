@@ -3,6 +3,7 @@ import { IMAGE, VIDEO } from './background';
 // eslint-disable-next-line no-unused-vars
 import { PERSON } from './person';
 import { state } from './state';
+import { TEXT, BUTTONS } from './text';
 
 const nextAlarmAction = currentScene => {
     if (currentScene === SCENES.alarm800) {
@@ -32,17 +33,17 @@ const ACTIONS = {
         ];
     },
     goToShowerActions: [
-        { text: 'Да)', nextScene: SCENES.timaInShower },
-        { text: 'Пшел нах', nextScene: SCENES.showerEndGame },
+        { text: BUTTONS.GO_TO_SHOWER.YES, nextScene: SCENES.timaInShower },
+        { text: BUTTONS.GO_TO_SHOWER.NO, nextScene: state.isAdultVersion ? SCENES.showerEndGame : SCENES.willYouEat },
     ],
     willYouEat: [
         { text: 'Да', nextScene: SCENES.breakFestSelection },
         { text: 'Нет', nextScene: SCENES.workPlaceSelection },
     ],
     breakFestSelection: [
-        { text: 'Выпить пиво', nextScene: SCENES.workPlaceSelection },
+        { text: BUTTONS.BREAKFEST_SELECTION.BEER, nextScene: SCENES.workPlaceSelection },
         // TODO: вероятно, тут нужен переход к видосику, где Саша готовит трешовый завтрак
-        { text: 'Саша приготовит трешовый завтрак', nextScene: SCENES.workPlaceSelection },
+        { text: BUTTONS.BREAKFEST_SELECTION.TRASH, nextScene: SCENES.workPlaceSelection },
     ],
     workPlaceSelection: [
         { text: 'Офис', nextScene: SCENES.toOfficeRoad },
@@ -56,13 +57,13 @@ const ACTIONS = {
     ],
     workAtHomeStart: [],
     workAtHome: [
-        { text: 'Работаем(', nextScene: SCENES.meetingAtHome },
+        { text: BUTTONS.WORK_AT_HOME.NEXT, nextScene: SCENES.meetingAtHome },
     ],
     meetingAtHome: [
-        { text: 'Идем(( ', nextScene: SCENES.congratulationsInMm },
+        { text: BUTTONS.MEETING_AT_HOME.NEXT, nextScene: SCENES.congratulationsInMm },
     ],
     congratulationsInMm: [
-        { text: 'Как мииило', nextScene: SCENES.internetWentDown },
+        { text: BUTTONS.CONGRATULATIONS_IN_MM.NEXT, nextScene: SCENES.internetWentDown },
     ],
     internetWentDown: [
         { text: 'Вызвать мастера', nextScene: SCENES.masterFixTheInternet },
@@ -87,7 +88,7 @@ export const END_GAME_ACTIONS = [
 ];
 
 const END_GAME_SCENE = {
-    text: 'Блять... Так, в этой игре сто процентов несколько концовок, пойду перепройду',
+    text: TEXT.END_GAME,
     actions: END_GAME_ACTIONS,
     scene: VIDEO.DIRECTED_BY_ROBERT,
     type: TYPE.video,
@@ -96,13 +97,13 @@ const END_GAME_SCENE = {
 export const getSceneGraph = () => ({
     [SCENES.endGame]: {
         ...END_GAME_SCENE,
-        text: 'Вы уволены.',
+        text: TEXT.FIRING,
     },
 
     [SCENES.greeting]: {
         person: null,
         scene: IMAGE.HOME,
-        text: 'Привет, мы начинаем приключение!',
+        text: TEXT.GREETING,
         type: TYPE.text,
     },
 
@@ -110,28 +111,28 @@ export const getSceneGraph = () => ({
     [SCENES.alarm800]: {
         actions: ACTIONS.alarmActions(SCENES.alarm800),
         scene: IMAGE.morning630,
-        text: 'Время 8.00, пора вставать!',
+        text: TEXT.ALARM800,
         type: TYPE.text,
     },
     [SCENES.alarm830]: {
         person: null,
         actions: ACTIONS.alarmActions(SCENES.alarm830),
         scene: IMAGE.morning830,
-        text: 'Время 8.30, ты скоро проспишь!',
+        text: TEXT.ALARM830,
         type: TYPE.text,
     },
     [SCENES.alarm900]: {
         person: null,
         actions: ACTIONS.alarmActions(SCENES.alarm900),
         scene: IMAGE.morning1030,
-        text: 'Аллоха накраситься не успеешь',
+        text: TEXT.ALARM900,
         type: TYPE.text,
     },
     [SCENES.alarm930]: {
         person: null,
         actions: ACTIONS.alarmActions(SCENES.alarm930),
         scene: IMAGE.morning1030,
-        text: 'АААА СРОЧНО ВСТАВАЙ УЖЕ 9.30',
+        text: TEXT.ALARM930,
         type: TYPE.text,
     },
     [SCENES.alarmEndGame]: {
@@ -143,7 +144,7 @@ export const getSceneGraph = () => ({
         person: null,
         actions: ACTIONS.goToShowerActions,
         scene: IMAGE.SHOWER,
-        text: 'Идем в душ?))))',
+        text: TEXT.GO_TO_SHOWER,
         type: TYPE.text,
     },
     [SCENES.timaInShower]: {
@@ -152,7 +153,7 @@ export const getSceneGraph = () => ({
     },
     [SCENES.showerEndGame]: {
         ...END_GAME_SCENE,
-        text: 'Вы уволены.',
+        text: TEXT.FIRING,
     },
 
     // Кухня
@@ -160,13 +161,13 @@ export const getSceneGraph = () => ({
         person: null,
         actions: ACTIONS.willYouEat,
         scene: IMAGE.KITCHEN,
-        text: 'Будешь есть?',
+        text: TEXT.WILL_YOU_EAT,
         type: TYPE.text,
     },
     [SCENES.breakFestSelection]: {
         actions: ACTIONS.breakFestSelection,
         scene: IMAGE.KITCHEN,
-        text: 'Что будешь есть?',
+        text: TEXT.BREAKFEST_SELECTION,
         type: TYPE.text,
     },
 
@@ -174,7 +175,7 @@ export const getSceneGraph = () => ({
     [SCENES.workPlaceSelection]: {
         actions: ACTIONS.workPlaceSelection,
         scene: IMAGE.HOME_WORKPLACE,
-        text: 'Где будем работать?',
+        text: TEXT.WORKSPACE_SELECTION,
         type: TYPE.text,
     },
 
@@ -182,37 +183,37 @@ export const getSceneGraph = () => ({
     [SCENES.workAtHomeStart]: {
         actions: ACTIONS.workAtHomeStart,
         scene: IMAGE.HOME_WORKPLACE,
-        text: 'Начинается работа...',
+        text: TEXT.WORK_AT_HOME_START,
         type: TYPE.text,
     },
     [SCENES.workAtHome]: {
         actions: ACTIONS.workAtHome,
         scene: IMAGE.HOME_WORKPLACE,
-        text: 'Работаем?',
+        text: TEXT.WORK_AT_HOME,
         type: TYPE.text,
     },
     [SCENES.meetingAtHome]: {
         actions: ACTIONS.meetingAtHome,
         scene: IMAGE.HOME_WORKPLACE,
-        text: 'Идем на мит?',
+        text: TEXT.MEETING_AT_HOME,
         type: TYPE.text,
     },
     [SCENES.congratulationsInMm]: {
         actions: ACTIONS.congratulationsInMm,
         scene: IMAGE.HOME_WORKPLACE,
-        text: 'Поздравляю, вас только что поздравили в ММ!',
+        text: TEXT.CONGRATULATIONS_IN_MM,
         type: TYPE.text,
     },
     [SCENES.internetWentDown]: {
         actions: ACTIONS.internetWentDown,
         scene: IMAGE.HOME_WORKPLACE,
-        text: 'Бля инет наебнулся, пизда конечно...',
+        text: TEXT.INTERNET_WENT_DOWN,
         type: TYPE.text,
     },
     [SCENES.masterFixTheInternet]: {
         actions: ACTIONS.masterFixTheInternet,
         scene: VIDEO.DENIS_MONTAGER,
-        text: 'Оу май...',
+        text: TEXT.MASTER_FIX_THE_INTERNET,
         type: TYPE.video,
     },
 
@@ -220,7 +221,7 @@ export const getSceneGraph = () => ({
     [SCENES.toOfficeRoad]: {
         actions: ACTIONS.toOfficeRoad,
         scene: IMAGE.HOME_WORKPLACE,
-        text: 'Как будем добираться?',
+        text: TEXT.TO_OFFICE_ROAD,
         type: TYPE.text,
     },
 
