@@ -59,6 +59,7 @@ export default {
     height: 100vh;
     position: relative;
     background: black;
+    display: flex;
 
     .background {
         width: 100%;
@@ -66,5 +67,8 @@ export default {
         background-repeat: no-repeat;
         background-size: cover;
     }
+}
+
+video {
 }
 </style>

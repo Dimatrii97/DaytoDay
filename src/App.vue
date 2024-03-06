@@ -4,14 +4,14 @@
     <div>
         <div class="music">
             <MusicOn
-                v-if="enableMusic"
+                v-if="isMusicEnabled"
                 class="icon"
-                @click="enableMusic = false"
+                @click="enableMusicForUser = false"
             />
             <MusicOff
                 v-else
                 class="icon"
-                @click="enableMusic = true"
+                @click="enableMusicForUser = true"
             />
         </div>
         <VScene
@@ -26,10 +26,11 @@
 import MusicOff from './components/music/music-off.vue';
 import MusicOn from './components/music/music-on.vue';
 import VScene from './components/scene_type/VScene.vue';
-import { VIDEO } from './scenes/background';
-import { FIRST_SCENE } from './scenes/constants';
-import { DEFAULT_NEXT_ACTION_ID, RESTART_ACTION_ID, NEXT_SCENE_TRANSITION, SCENE_GRAPH } from './scenes/scene_graph';
+// import { VIDEO } from './scenes/background';
+import { FIRST_SCENE, TYPE } from './scenes/constants';
+import { DEFAULT_NEXT_ACTION_ID, RESTART_ACTION_ID, NEXT_SCENE_TRANSITION, getSceneGraph } from './scenes/scene_graph';
 import { randomBoolean } from './util';
+import { state } from './scenes/state';
 
 const music = require('@/assets/music/never_gonna_give_you_up.mp4');
 const secondMusic = require('@/assets/music/fruhling_in_paris.mp3');
@@ -44,7 +45,8 @@ export default {
     data() {
         return {
             currentSceneId: FIRST_SCENE,
-            enableMusic: true,
+            enableMusicForUser: true,
+            isMusicEnabled: true,
             audio: null,
         };
     },
@@ -57,11 +59,14 @@ export default {
     },
     computed: {
         currentScene() {
-            return SCENE_GRAPH[this.currentSceneId];
+            // ЕБАНИНА СДЕЛАТЬ МЕТОД ТИПА getScene()
+            return getSceneGraph()[this.currentSceneId];
         },
     },
     methods: {
         changeScene(nextScene) {
+            state.handleScene(nextScene);
+
             if (nextScene === DEFAULT_NEXT_ACTION_ID) {
                 this.currentSceneId = NEXT_SCENE_TRANSITION[this.currentSceneId];
                 return;
@@ -69,14 +74,29 @@ export default {
 
             if (nextScene === RESTART_ACTION_ID) {
                 this.currentSceneId = FIRST_SCENE;
+                state.resetState();
                 return;
             }
 
             this.currentSceneId = nextScene;
         },
+        enableMusic() {
+            if (!this.enableMusicForUser) {
+                return;
+            }
+
+            this.isMusicEnabled = true;
+        }
     },
     watch: {
-        enableMusic(value) {
+        enableMusicForUser(value) {
+            if (value) {
+                this.enableMusic();
+            } else {
+                this.isMusicEnabled = false;
+            }
+        },
+        isMusicEnabled(value) {
             if (value) {
                 this.audio.play();
             } else {
@@ -86,8 +106,10 @@ export default {
         currentScene: {
             deep: true,
             handler(value) {
-                if (value.scene === VIDEO.DIRECTED_BY_ROBERT) {
-                    this.enableMusic = false;
+                if (value.type === TYPE.video) {
+                    this.isMusicEnabled = false;
+                } else {
+                    this.enableMusic();
                 }
             },
         },

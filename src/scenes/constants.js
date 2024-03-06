@@ -4,6 +4,8 @@ export const TYPE = {
 };
 
 export const SCENES = {
+    endGame: 'endGame',
+
     greeting: 'greeting',
 
     alarm800: 'alarm800',
@@ -20,7 +22,14 @@ export const SCENES = {
     breakFestSelection: 'breakFestSelection',
 
     workPlaceSelection: 'workPlaceSelection',
+
     workAtHomeStart: 'workAtHomeStart',
+    workAtHome: 'workAtHome',
+    meetingAtHome: 'meetingAtHome',
+    congratulationsInMm: 'congratulationsInMm',
+    internetWentDown: 'internetWentDown',
+    masterFixTheInternet: 'masterFixTheInternet',
+
     toOfficeRoad: 'toOfficeRoad',
 
     mercedes: 'mercedes',

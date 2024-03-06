@@ -9,7 +9,7 @@
             v-else
             :scene="scene"
             @changeScene="$emit('changeScene', $event)"
-         />
+        />
     </div>
 </template>
 
@@ -30,6 +30,9 @@ export default {
         },
     },
     emits: ['changeScene'],
+    mounted() {
+        console.log('VScene mounted')
+    },
     computed: {
         isVideo() {
             return this.scene.type === TYPE.video;

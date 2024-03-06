@@ -1,22 +1,25 @@
 <template>
     <div class="scene scene-basic">
-        <div
-            class="background"
-            :style="{ backgroundImage: createBackgroundUrl(backgroundUrl) }"
-        >
-            <div v-if="person" class="person-container">
-                <div
-                    class="person"
-                    :class="[personPosition]"
-                    :style="{ backgroundImage: createBackgroundUrl(personUrl) }"
+        <transition name="slide-fade">
+            <div
+                class="background"
+                :key="createBackgroundUrl(backgroundUrl)"
+                :style="{ backgroundImage: createBackgroundUrl(backgroundUrl) }"
+            >
+                <div v-if="person" class="person-container">
+                    <div
+                        class="person"
+                        :class="[personPosition]"
+                        :style="{ backgroundImage: createBackgroundUrl(personUrl) }"
+                    />
+                </div>
+                <ControlPanel
+                    :text="scene.text"
+                    :actions="scene.actions"
+                    @changeScene="$emit('changeScene', $event)"
                 />
             </div>
-            <ControlPanel
-                :text="scene.text"
-                :actions="scene.actions"
-                @changeScene="$emit('changeScene', $event)"
-            />
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -35,6 +38,9 @@ export default {
     emits: ['changeScene'],
     components: {
         ControlPanel,
+    },
+    mounted() {
+        console.log('SceneBasic mounted')
     },
     computed: {
         backgroundImage() {
@@ -102,5 +108,20 @@ export default {
             margin-left: auto;
         }
     }
+}
+
+/* prefix with transition name */
+.slide-fade-enter-active {
+  opacity: 1;
+  z-index: 10;
+}
+
+.slide-fade-leave-active {
+  opacity: 1;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  opacity: 0;
 }
 </style>

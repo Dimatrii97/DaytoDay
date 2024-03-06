@@ -19,7 +19,7 @@
                     >
                         {{ action.text }}
                     </button>
-                    <button v-if="!actions.length" type="button" :disabled="actionNotSelected" @click="nextScene">
+                    <button v-if="!actions.length" type="button" @click="nextScene">
                         {{ nextAction.text }}
                     </button>
                 </div>
