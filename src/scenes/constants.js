@@ -32,11 +32,18 @@ export const SCENES = {
     masterFixTheInternet: 'masterFixTheInternet',
 
     toOfficeRoad: 'toOfficeRoad',
+    taxi: 'taxi',
+    pony: 'poni',
+    walking: 'walking',
+    random: 'random',
 
     mercedes: 'mercedes',
+
+    enterOffice: 'enterOffice',
 };
 
 export const FIRST_SCENE = SCENES.greeting;
 // export const FIRST_SCENE = SCENES.alarm930;
 
 export const ALARM_SCENES = [SCENES.alarm800, SCENES.alarm830, SCENES.alarm900, SCENES.alarm930, SCENES.alarmEndGame];
+export const TRANSPORT_SCENES = [SCENES.taxi, SCENES.pony, SCENES.walking, SCENES.random];

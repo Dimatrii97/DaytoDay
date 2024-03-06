@@ -20,6 +20,9 @@ export const IMAGE = {
     SHOWER: loadBackground('shower.jpg'),
     OFFICE: loadBackground('office.jpg'),
     KITCHEN: loadBackground('kitchen.jpg'),
+    BAD_WEATHER: loadBackground('bad_weather.webp'),
+    PONY: loadBackground('pony.webp'),
+    MERCEDES: loadBackground('mercedes.webp'),
 };
 
 export const VIDEO = {

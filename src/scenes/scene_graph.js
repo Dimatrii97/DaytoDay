@@ -55,12 +55,22 @@ const getActions = () => {
             { text: 'Офис', nextScene: SCENES.toOfficeRoad },
             { text: 'Удаленка', nextScene: SCENES.workAtHomeStart },
         ],
-        toOfficeRoad: [
-            { text: 'Такси', nextScene: SCENES.mercedes },
-            { text: 'Пешком', nextScene: SCENES.mercedes },
-            { text: 'Пони', nextScene: SCENES.mercedes },
-            { text: 'Рандом', nextScene: SCENES.mercedes },
-        ],
+        toOfficeRoad: () => {
+            if (state.allTransportsSelected) {
+                return [{
+                    text: 'Выйти на улицу', nextScene: SCENES.mercedes,
+                }];
+            }
+
+            const roadActions = [
+                { text: 'Такси', nextScene: SCENES.taxi },
+                { text: 'Пешком', nextScene: SCENES.walking },
+                { text: 'Пони', nextScene: SCENES.pony },
+                { text: 'Рандом', nextScene: SCENES.random },
+            ];
+
+            return roadActions.filter(it => !state.isTransportSelected(it.text));
+        },
         workAtHomeStart: [],
         workAtHome: [{ text: BUTTONS.WORK_AT_HOME.NEXT, nextScene: SCENES.meetingAtHome }],
         meetingAtHome: [{ text: BUTTONS.MEETING_AT_HOME.NEXT, nextScene: SCENES.congratulationsInMm }],
@@ -72,6 +82,10 @@ const getActions = () => {
         masterFixTheInternet: [
             { text: 'Остаться дома', nextScene: SCENES.endGame },
             { text: 'Поехать в офис', nextScene: SCENES.toOfficeRoad },
+        ],
+
+        mercedes: [
+            { text: 'Как мило. Давай)', nextScene: SCENES.enterOffice },
         ],
     };
 };
@@ -221,11 +235,37 @@ export const getSceneGraph = () => {
             textDelay: 15000,
         },
 
-        // Работа в офисе
+        // транспорт в офис
         [SCENES.toOfficeRoad]: {
-            actions: ACTIONS.toOfficeRoad,
-            scene: IMAGE.HOME_WORKPLACE,
-            text: TEXT.TO_OFFICE_ROAD,
+            actions: ACTIONS.toOfficeRoad(),
+            scene: IMAGE.HOME,
+            text: state.allTransportsSelected ? 'Черт, что же мне делать...' : TEXT.TO_OFFICE_ROAD,
+            type: TYPE.text,
+        },
+        [SCENES.taxi]: {
+            scene: IMAGE.HOME,
+            text: 'Машина не может подъехать на ваш заказ, пожалуйста подождите... Бесконечно',
+            type: TYPE.text,
+        },
+        [SCENES.walking]: {
+            scene: IMAGE.BAD_WEATHER,
+            text: 'Ой что то там как то не солнечно :(',
+            type: TYPE.text,
+        },
+        [SCENES.pony]: {
+            scene: IMAGE.PONY,
+            text: 'Конечно было бы хорошо если бы не было так сказочно...',
+            type: TYPE.text,
+        },
+        [SCENES.random]: {
+            scene: IMAGE.HOME,
+            text: 'Блин, рандомайзер сломался',
+            type: TYPE.text,
+        },
+        [SCENES.mercedes]: {
+            actions: ACTIONS.mercedes,
+            scene: IMAGE.MERCEDES,
+            text: TEXT.MERCEDES,
             type: TYPE.text,
         },
     };
@@ -237,4 +277,8 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.timaInShower]: SCENES.willYouEat,
     [SCENES.workAtHomeStart]: SCENES.workAtHome,
     [SCENES.workAtHome]: SCENES.meetingAtHome,
+    [SCENES.taxi]: SCENES.toOfficeRoad,
+    [SCENES.pony]: SCENES.toOfficeRoad,
+    [SCENES.walking]: SCENES.toOfficeRoad,
+    [SCENES.random]: SCENES.toOfficeRoad,
 };

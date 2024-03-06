@@ -15,7 +15,7 @@
                         v-for="action in actions"
                         :key="action.nextScene"
                         type="button"
-                        @click="goToNextScene(action.nextScene)"
+                        @click="goToNextScene(action)"
                     >
                         {{ action.text }}
                     </button>
@@ -65,7 +65,7 @@ export default {
             this.nextSceneId = scene;
         },
         nextScene() {
-            this.goToNextScene(DEFAULT_NEXT_ACTION_ID);
+            this.goToNextScene({ nextScene: DEFAULT_NEXT_ACTION_ID });
         },
         goToNextScene(scene) {
             if (!this.showActions) {
