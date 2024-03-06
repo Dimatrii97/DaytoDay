@@ -1,17 +1,22 @@
-import { SCENES, TRANSPORT_SCENES } from './constants';
+import { SCENES, TRANSPORT_SCENES, NPC } from './constants';
 
 class SceneState {
     #isAdult = false;
 
     #wakeOn930 = false;
     #selectedTransport = [];
+    #talkedWith = [];
 
     constructor() {
         const params = new URLSearchParams(document.location.search);
         this.#isAdult = params.get('adult') || false;
     }
 
-    handleScene({ nextScene, text }) {
+    handleScene({ nextScene, text, callback }) {
+        if (callback) {
+            callback();
+        }
+
         if (nextScene === SCENES.alarm930) {
             this.#wakeOn930 = true;
         }
@@ -33,6 +38,18 @@ class SceneState {
         return this.#selectedTransport.length === 4;
     }
 
+    get talkedWithAllNpc() {
+        return this.#talkedWith.length === Object.values(NPC).length;
+    }
+
+    talkedWithNpc(name) {
+        return this.#talkedWith.includes(name);
+    }
+
+    talkWithNpc(name) {
+        this.#talkedWith.push(name);
+    }
+
     isTransportSelected(transport) {
         return this.#selectedTransport.includes(transport);
     }
@@ -49,6 +66,7 @@ class SceneState {
         this.#wakeOn930 = false;
         this.#isAdult = false;
         this.#selectedTransport = [];
+        this.#talkedWith = [];
     }
 }
 

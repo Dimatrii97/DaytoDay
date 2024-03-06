@@ -1,6 +1,5 @@
-import { SCENES, TYPE } from './constants';
+import { SCENES, TYPE, NPC } from './constants';
 import { IMAGE, VIDEO, GAME } from './background';
-// eslint-disable-next-line no-unused-vars
 import { PERSON } from './person';
 import { state } from './state';
 import { getText, getButtons } from './text';
@@ -57,9 +56,12 @@ const getActions = () => {
         ],
         toOfficeRoad: () => {
             if (state.allTransportsSelected) {
-                return [{
-                    text: 'Выйти на улицу', nextScene: SCENES.mercedes,
-                }];
+                return [
+                    {
+                        text: 'Выйти на улицу',
+                        nextScene: SCENES.mercedes,
+                    },
+                ];
             }
 
             const roadActions = [
@@ -84,19 +86,13 @@ const getActions = () => {
             { text: 'Поехать в офис', nextScene: SCENES.toOfficeRoad },
         ],
 
-        mercedes: [
-            { text: 'Как мило. Давай)', nextScene: SCENES.enterOffice },
-        ],
-        office_guard: [
-            { text: 'Спасибо :)', nextScene: SCENES.officeOpenDoor },
-        ],
+        mercedes: [{ text: 'Как мило. Давай)', nextScene: SCENES.enterOffice }],
+        office_guard: [{ text: 'Спасибо :)', nextScene: SCENES.officeOpenDoor }],
         flowersInOffice: [
             { text: 'Принять цветок', nextScene: SCENES.flowersAreGift },
             { text: 'Пусть съест', nextScene: SCENES.eatFlowers },
         ],
-        vodkaAsGift: [
-            { text: BUTTONS.VODKA_AS_GIFT, nextScene: SCENES.workInOffice },
-        ],
+        vodkaAsGift: [{ text: BUTTONS.VODKA_AS_GIFT.NEXT, nextScene: SCENES.workInOffice }],
     };
 };
 
@@ -109,6 +105,59 @@ export const NEXT_ACTION = {
 };
 
 export const END_GAME_ACTIONS = [{ text: 'Заново', nextScene: RESTART_ACTION_ID }];
+
+const workInOfficeParams = () => {
+    // NOTE: тексты должны разные иначе все ебанется
+    const npcList = [
+        {
+            name: NPC.NIKOLAI,
+            person: PERSON.KOLYA_STAND,
+            text: 'Привет, не хочешь поболтать?',
+            nextScene: SCENES.talkWithKolya,
+        },
+        {
+            name: NPC.DENIS,
+            person: PERSON.DENIS_K_GREETINGS,
+            text: 'Ыыы Привет, не хочешь поболтать?',
+            nextScene: SCENES.talkWithDenis,
+        },
+        {
+            name: NPC.DIMA,
+            person: PERSON.DIMA_HELLO,
+            text: 'Ууу Привет, не хочешь поболтать?',
+            nextScene: SCENES.talkWithDima,
+        },
+        {
+            name: NPC.ANDREY,
+            person: PERSON.ANDREY_HELLO,
+            text: 'ЭЭэ Привет, не хочешь поболтать?',
+            nextScene: SCENES.talkWithAndrey,
+        },
+    ].filter(it => !state.talkedWithNpc(it.name));
+
+    console.log({ state, npcList });
+
+    if (state.talkedWithAllNpc) {
+        return {
+            text: 'Фух, кажется рабочий день закончился...',
+        };
+    }
+
+    const currentNpc = npcList[0];
+
+    const callback = () => state.talkWithNpc(currentNpc.name);
+
+    return {
+        text: currentNpc.text,
+        person: {
+            url: currentNpc.person,
+        },
+        actions: [
+            { text: 'Работать', nextScene: SCENES.workInOffice, callback },
+            { text: 'Поболтать', nextScene: currentNpc.nextScene, callback },
+        ],
+    };
+};
 
 export const getSceneGraph = () => {
     const TEXT = getText();
@@ -304,7 +353,7 @@ export const getSceneGraph = () => {
         },
         [SCENES.flowersInOffice]: {
             person: {
-                url: 'denis/denis_k_greetings.webp',
+                url: PERSON.DIMA_WITH_FLOWERS,
             },
             actions: ACTIONS.flowersInOffice,
             scene: IMAGE.OFFICE,
@@ -322,15 +371,47 @@ export const getSceneGraph = () => {
             type: TYPE.video,
         },
         [SCENES.vodkaAsGift]: {
+            actions: ACTIONS.vodkaAsGift,
             scene: IMAGE.VODKA_AS_GIFT,
             text: 'Теперь вместо цветов для тебя подарок еще лучше!',
             type: TYPE.text,
         },
 
         [SCENES.workInOffice]: {
-            actions: [],
+            ...workInOfficeParams(),
             scene: IMAGE.OFFICE,
-            text: '',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithKolya]: {
+            person: {
+                url: PERSON.KOLYA_TALKING,
+            },
+            scene: IMAGE.OFFICE,
+            text: 'Йоу йоу йоу. Хорошо поболтали?',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithAndrey]: {
+            person: {
+                url: PERSON.ANDREY_TALKING,
+            },
+            scene: IMAGE.OFFICE,
+            text: 'Йоу йоу йоу. Хорошо поболтали?',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithDenis]: {
+            person: {
+                url: PERSON.DENIS_K_TALKING,
+            },
+            scene: IMAGE.OFFICE,
+            text: 'Йоу йоу йоу. Хорошо поболтали?',
+            type: TYPE.text,
+        },
+        [SCENES.talkWithDima]: {
+            person: {
+                url: PERSON.DIMA_TALKING,
+            },
+            scene: IMAGE.OFFICE,
+            text: 'Йоу йоу йоу. Хорошо поболтали?',
             type: TYPE.text,
         },
     };
@@ -351,4 +432,9 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.flowersAreGift]: SCENES.workInOffice,
     [SCENES.eatFlowers]: SCENES.vodkaAsGift,
     [SCENES.vodkaAsGift]: SCENES.workInOffice,
+
+    [SCENES.talkWithKolya]: SCENES.workInOffice,
+    [SCENES.talkWithAndrey]: SCENES.workInOffice,
+    [SCENES.talkWithDima]: SCENES.workInOffice,
+    [SCENES.talkWithDenis]: SCENES.workInOffice,
 };

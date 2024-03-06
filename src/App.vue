@@ -105,8 +105,8 @@ export default {
 
             this.started = true;
         },
-        changeScene({ nextScene, text }) {
-            state.handleScene({ nextScene, text });
+        changeScene({ nextScene, text, callback }) {
+            state.handleScene({ nextScene, text, callback });
 
             if (nextScene === DEFAULT_NEXT_ACTION_ID) {
                 this.currentSceneId = NEXT_SCENE_TRANSITION[this.currentSceneId];
@@ -118,6 +118,11 @@ export default {
                 state.resetState();
                 this.started = false;
                 return;
+            }
+
+            // NOTE: ебучий костыль, чтобы перезагружалась сцена, когда id не изменился
+            if (this.currentSceneId === nextScene) {
+                this.currentSceneId = null;
             }
 
             this.currentSceneId = nextScene;
