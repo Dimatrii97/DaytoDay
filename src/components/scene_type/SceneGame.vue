@@ -1,7 +1,10 @@
 <template>
     <div class="scene scene-game">
-        <JiraGame/>
+        <JiraGame
+            @game-completed="onGameCompleted"
+        />
         <ControlPanel
+            v-if="gameCompleted"
             :text="scene.text"
             :actions="scene.actions"
             @changeScene="$emit('changeScene', $event)"
@@ -26,14 +29,15 @@ export default {
         ControlPanel,
         JiraGame
     },
-    computed: {
-        video() {
-            return this.scene.scene;
-        },
+    data() {
+        return {
+            gameCompleted: false,
+        }
     },
+    computed: {},
     methods: {
-        createBackgroundUrl(url) {
-            return `url(${url})`;
+        onGameCompleted() {
+            this.gameCompleted = true;
         },
     },
 };

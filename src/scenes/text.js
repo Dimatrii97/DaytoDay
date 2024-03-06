@@ -66,7 +66,7 @@ const ADULT_BUTTONS = {
         TRASH: 'Саша приготовит трешовый завтрак',
     },
     WORK_AT_HOME: {
-        NEXT: 'Блять(',
+        NEXT: 'Блять панголин(',
     },
     MEETING_AT_HOME: {
         NEXT: 'Блять(((',
@@ -86,7 +86,7 @@ const BASE_BUTTONS = {
         TRASH: 'Саша приготовит трешовый завтрак',
     },
     WORK_AT_HOME: {
-        NEXT: 'Работаем',
+        NEXT: 'Работаем работаем',
     },
     MEETING_AT_HOME: {
         NEXT: 'Идем',

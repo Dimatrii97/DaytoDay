@@ -6,7 +6,7 @@
             @changeScene="$emit('changeScene', $event)"
         />
         <SceneGame
-            v-if="isGame"
+            v-else-if="isGame"
             :scene="scene"
             @changeScene="$emit('changeScene', $event)"
         />

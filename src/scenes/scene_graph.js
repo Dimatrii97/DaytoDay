@@ -192,7 +192,7 @@ export const getSceneGraph = () => {
         [SCENES.workAtHome]: {
             actions: ACTIONS.workAtHome,
             scene: GAME.JIRA,
-            text: TEXT.WORK_AT_HOME,
+            text: '',
             type: TYPE.game,
         },
         [SCENES.meetingAtHome]: {
@@ -236,4 +236,5 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.alarm800]: SCENES.goToShower,
     [SCENES.timaInShower]: SCENES.willYouEat,
     [SCENES.workAtHomeStart]: SCENES.workAtHome,
+    [SCENES.workAtHome]: SCENES.meetingAtHome,
 };
