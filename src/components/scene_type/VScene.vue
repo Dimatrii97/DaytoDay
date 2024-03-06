@@ -5,6 +5,11 @@
             :scene="scene"
             @changeScene="$emit('changeScene', $event)"
         />
+        <SceneGame
+            v-if="isGame"
+            :scene="scene"
+            @changeScene="$emit('changeScene', $event)"
+        />
         <SceneBasic
             v-else
             :scene="scene"
@@ -17,11 +22,13 @@
 import { TYPE } from '@/scenes/constants';
 import SceneBasic from './SceneBasic.vue';
 import SceneVideo from './SceneVideo.vue';
+import SceneGame from './SceneGame.vue';
 
 export default {
     components: {
         SceneBasic,
         SceneVideo,
+        SceneGame
     },
     props: {
         scene: {
@@ -36,6 +43,9 @@ export default {
     computed: {
         isVideo() {
             return this.scene.type === TYPE.video;
+        },
+        isGame() {
+            return this.scene.type === TYPE.game;
         }
     }
 };

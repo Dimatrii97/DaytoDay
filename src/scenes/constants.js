@@ -1,6 +1,7 @@
 export const TYPE = {
     text: 'text',
     video: 'video',
+    game: 'game'
 };
 
 export const SCENES = {

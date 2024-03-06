@@ -1,5 +1,5 @@
 import { SCENES, TYPE } from './constants';
-import { IMAGE, VIDEO } from './background';
+import { IMAGE, VIDEO, GAME } from './background';
 // eslint-disable-next-line no-unused-vars
 import { PERSON } from './person';
 import { state } from './state';
@@ -191,9 +191,9 @@ export const getSceneGraph = () => {
         },
         [SCENES.workAtHome]: {
             actions: ACTIONS.workAtHome,
-            scene: IMAGE.HOME_WORKPLACE,
+            scene: GAME.JIRA,
             text: TEXT.WORK_AT_HOME,
-            type: TYPE.text,
+            type: TYPE.game,
         },
         [SCENES.meetingAtHome]: {
             actions: ACTIONS.meetingAtHome,

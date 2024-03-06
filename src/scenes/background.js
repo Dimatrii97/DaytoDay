@@ -27,3 +27,7 @@ export const VIDEO = {
     TIMA_IN_SHOWER: loadVideo('tima_in_shower.mp4'),
     DENIS_MONTAGER: loadVideo('denis_montager.mp4'),
 };
+
+export const GAME = {
+    JIRA: null
+}
