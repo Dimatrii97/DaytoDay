@@ -46,6 +46,7 @@ export const SCENES = {
     flowersAreGift: 'flowersAreGift',
     eatFlowers: 'eatFlowers',
 
+    goToWorkPlaceInOffice: 'goToWorkPlaceInOffice',
     workInOffice: 'workInOffice',
     vodkaAsGift: 'vodkaAsGift',
 

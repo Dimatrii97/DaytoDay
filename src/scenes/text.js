@@ -86,6 +86,9 @@ const ADULT_BUTTONS = {
     CONGRATULATIONS_IN_MM: {
         NEXT: 'Как миииило',
     },
+    FLOWERS_IN_OFFICE: {
+        REJECT: 'Пошел вон',
+    },
     VODKA_AS_GIFT: {
         NEXT: 'Принять и выпить',
     },
@@ -108,6 +111,9 @@ const BASE_BUTTONS = {
     },
     CONGRATULATIONS_IN_MM: {
         NEXT: 'Как миииило',
+    },
+    FLOWERS_IN_OFFICE: {
+        REJECT: 'Спасибо, нет',
     },
     VODKA_AS_GIFT: {
         NEXT: 'Принять и выпить',

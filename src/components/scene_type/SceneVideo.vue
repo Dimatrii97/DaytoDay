@@ -73,7 +73,6 @@ export default {
             }
         },
         onEnded() {
-            console.log('video ended');
             this.showControls = true;
         },
     },

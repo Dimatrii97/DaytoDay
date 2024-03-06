@@ -90,9 +90,12 @@ const getActions = () => {
         office_guard: [{ text: 'Спасибо :)', nextScene: SCENES.officeOpenDoor }],
         flowersInOffice: [
             { text: 'Принять цветок', nextScene: SCENES.flowersAreGift },
-            { text: 'Пусть съест', nextScene: SCENES.eatFlowers },
+            { text: BUTTONS.FLOWERS_IN_OFFICE.REJECT, nextScene: SCENES.eatFlowers },
         ],
-        vodkaAsGift: [{ text: BUTTONS.VODKA_AS_GIFT.NEXT, nextScene: SCENES.workInOffice }],
+        flowersAreGift: [
+            { text: 'Спасииибо', nextScene: SCENES.goToWorkPlaceInOffice },
+        ],
+        vodkaAsGift: [{ text: BUTTONS.VODKA_AS_GIFT.NEXT, nextScene: SCENES.goToWorkPlaceInOffice }],
     };
 };
 
@@ -352,15 +355,13 @@ export const getSceneGraph = () => {
             type: TYPE.text,
         },
         [SCENES.flowersInOffice]: {
-            person: {
-                url: PERSON.DIMA_WITH_FLOWERS,
-            },
             actions: ACTIONS.flowersInOffice,
-            scene: IMAGE.OFFICE,
-            text: TEXT.FLOWERS_IN_OFFICE,
-            type: TYPE.text,
+            scene: VIDEO.OFFER_FLOWERS,
+            text: '',
+            type: TYPE.video,
         },
         [SCENES.flowersAreGift]: {
+            actions: ACTIONS.flowersAreGift,
             scene: VIDEO.FLOWERS_ARE_GIFT,
             text: '',
             type: TYPE.video,
@@ -377,6 +378,11 @@ export const getSceneGraph = () => {
             type: TYPE.text,
         },
 
+        [SCENES.goToWorkPlaceInOffice]: {
+            text: 'Фух, теперь можно и поработать...',
+            scene: IMAGE.OFFICE,
+            type: TYPE.text,
+        },
         [SCENES.workInOffice]: {
             ...workInOfficeParams(),
             scene: IMAGE.OFFICE,
@@ -429,9 +435,10 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.random]: SCENES.toOfficeRoad,
 
     [SCENES.officeOpenDoor]: SCENES.flowersInOffice,
-    [SCENES.flowersAreGift]: SCENES.workInOffice,
+    [SCENES.flowersAreGift]: SCENES.goToWorkPlaceInOffice,
     [SCENES.eatFlowers]: SCENES.vodkaAsGift,
-    [SCENES.vodkaAsGift]: SCENES.workInOffice,
+    [SCENES.vodkaAsGift]: SCENES.goToWorkPlaceInOffice,
+    [SCENES.goToWorkPlaceInOffice]: SCENES.workInOffice,
 
     [SCENES.talkWithKolya]: SCENES.workInOffice,
     [SCENES.talkWithAndrey]: SCENES.workInOffice,
