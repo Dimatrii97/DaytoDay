@@ -24,8 +24,13 @@ class SceneState {
         return this.#isAdult;
     }
 
+    set isAdult(value) {
+        this.#isAdult = value;
+    }
+
     resetState() {
         this.#wakeOn930 = false;
+        this.#isAdult = false;
     }
 }
 

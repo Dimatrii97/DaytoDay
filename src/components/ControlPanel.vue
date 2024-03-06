@@ -45,6 +45,11 @@ export default {
             required: false,
             default: () => [],
         },
+        delay: {
+            type: Number,
+            required: false,
+            default: 0,
+        },
     },
     emits: ['changeScene'],
     data() {
@@ -63,6 +68,10 @@ export default {
             this.goToNextScene(DEFAULT_NEXT_ACTION_ID);
         },
         goToNextScene(scene) {
+            if (!this.showActions) {
+                return;
+            }
+
             this.$emit('changeScene', scene);
         },
         skipTypeWriterEffect() {
@@ -84,6 +93,7 @@ export default {
         });
 
         writer
+            .pauseFor(this.delay)
             .typeString(this.text)
             .pauseFor(300)
             .callFunction(() => {

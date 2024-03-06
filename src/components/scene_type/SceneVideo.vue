@@ -20,6 +20,7 @@
         <ControlPanel
             :text="scene.text"
             :actions="scene.actions"
+            :delay="scene.textDelay"
             @changeScene="$emit('changeScene', $event)"
         />
     </div>

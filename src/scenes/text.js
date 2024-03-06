@@ -96,5 +96,5 @@ const BASE_BUTTONS = {
     },
 };
 
-export const TEXT = state.isAdultVersion ? ADULT_TEXT : BASE_TEXT;
-export const BUTTONS = state.isAdultVersion ? ADULT_BUTTONS : BASE_BUTTONS;
+export const getText = () => state.isAdultVersion ? ADULT_TEXT : BASE_TEXT;
+export const getButtons = () => state.isAdultVersion ? ADULT_BUTTONS : BASE_BUTTONS;

@@ -26,6 +26,7 @@
 <script>
 import ControlPanel from '@/components/ControlPanel.vue';
 import { POSITION } from '@/scenes/person';
+import { createBackgroundUrl } from '@/util';
 
 export default {
     name: 'SceneBasic',
@@ -60,9 +61,7 @@ export default {
         },
     },
     methods: {
-        createBackgroundUrl(url) {
-            return `url(${url})`;
-        }
+        createBackgroundUrl,
     }
 };
 </script>

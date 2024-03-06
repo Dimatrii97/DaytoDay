@@ -1,5 +1,5 @@
 <template>
-    <!-- Так, зачем ты открыла инспектор, ну ка выйди, мне стыдно за свой говнокод...
+    <!-- Так, зачем ты открыла инспектор, ну ка выйди, мне стыдно за свой прекрасный код...
         С 8 марта, счастья здоровья, меньше работы, больше денег -->
     <div>
         <div class="music">
@@ -14,7 +14,26 @@
                 @click="enableMusicForUser = true"
             />
         </div>
+        <div 
+            v-if="!started" 
+            class="start"
+            :style="{ backgroundImage: createBackgroundUrl(backgroundUrl) }"
+        >
+            <div class="start-background" />
+            <div class="content">
+                <h2>Привет! Мы предлагаем тебе прожить один день из жизни обычной айтишницы. Выбери режим</h2>
+                <div class="actions">
+                    <button type="button" @click="startGame('base')">
+                        Культурный
+                    </button>
+                    <button type="button" @click="startGame('adult')">
+                        Взрослый
+                    </button>
+                </div>
+            </div>
+        </div>
         <VScene
+            v-else
             :key="currentSceneId"
             :scene="currentScene"
             @changeScene="changeScene"
@@ -31,6 +50,8 @@ import { FIRST_SCENE, TYPE } from './scenes/constants';
 import { DEFAULT_NEXT_ACTION_ID, RESTART_ACTION_ID, NEXT_SCENE_TRANSITION, getSceneGraph } from './scenes/scene_graph';
 import { randomBoolean } from './util';
 import { state } from './scenes/state';
+import { createBackgroundUrl } from '@/util';
+import { IMAGE } from './scenes/background';
 
 const music = require('@/assets/music/never_gonna_give_you_up.mp4');
 const secondMusic = require('@/assets/music/fruhling_in_paris.mp3');
@@ -44,6 +65,7 @@ export default {
     },
     data() {
         return {
+            started: false,
             currentSceneId: FIRST_SCENE,
             enableMusicForUser: true,
             isMusicEnabled: true,
@@ -62,8 +84,22 @@ export default {
             // ЕБАНИНА СДЕЛАТЬ МЕТОД ТИПА getScene()
             return getSceneGraph()[this.currentSceneId];
         },
+        backgroundUrl() {
+            return IMAGE.HOME;
+        },
     },
     methods: {
+        startGame(mode) {
+            if (mode === 'adult') {
+                state.isAdult = true;
+            } else {
+                state.isAdult = false;
+            }
+
+            console.log('state', state);
+
+            this.started = true;
+        },
         changeScene(nextScene) {
             state.handleScene(nextScene);
 
@@ -75,6 +111,7 @@ export default {
             if (nextScene === RESTART_ACTION_ID) {
                 this.currentSceneId = FIRST_SCENE;
                 state.resetState();
+                this.started = false;
                 return;
             }
 
@@ -86,7 +123,8 @@ export default {
             }
 
             this.isMusicEnabled = true;
-        }
+        },
+        createBackgroundUrl,
     },
     watch: {
         enableMusicForUser(value) {
@@ -118,6 +156,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.start {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+
+    .start-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        opacity: .7;
+        z-index: 4;
+    }
+
+    .content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        z-index: 5;
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 32px;
+            color: white;
+        }
+    }
+}
+
 .music {
     position: absolute;
     top: 0;
@@ -173,6 +251,7 @@ button:hover:not([disabled]) {
 
 button:disabled {
     cursor: default;
+    pointer-events: none;
     opacity: 0.5;
 }
 
