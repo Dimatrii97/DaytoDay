@@ -27,8 +27,6 @@ const nextAlarmAction = currentScene => {
 
 const getActions = () => {
     const BUTTONS = getButtons();
-    console.log('state', state.isAdultVersion);
-    console.log({ BUTTONS });
 
     return {
         alarmActions: currentScene => {
@@ -146,6 +144,7 @@ const workInOfficeParams = () => {
     if (state.talkedWithAllNpc) {
         return {
             text: 'Фух, кажется рабочий день закончился...',
+            actions: [{ text: 'Пора отдыхать', nextScene: SCENES.happyEndGame }],
         };
     }
 
@@ -182,6 +181,7 @@ export const getSceneGraph = () => {
         actions: END_GAME_ACTIONS,
         scene: VIDEO.DIRECTED_BY_ROBERT,
         type: TYPE.video,
+        showControlsImmediately: true,
     };
 
     return {
@@ -623,4 +623,6 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.talkWithDenis]: SCENES.talkWithDenis2,
     [SCENES.talkWithDenis2]: SCENES.talkWithDenis3,
     [SCENES.talkWithDenis3]: SCENES.workInOffice,
+
+    [SCENES.workInOffice]: SCENES.happyEndGame,
 };
