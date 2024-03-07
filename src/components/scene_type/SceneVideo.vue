@@ -20,6 +20,7 @@
 
         <ControlPanel
             v-if="showControls"
+            :key="scene.text"
             :text="scene.text"
             :actions="scene.actions"
             :delay="scene.textDelay"
