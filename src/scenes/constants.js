@@ -29,6 +29,8 @@ export const SCENES = {
     workAtHomeStart: 'workAtHomeStart',
     workAtHome: 'workAtHome',
     meetingAtHome: 'meetingAtHome',
+    congratulationsAtMeeting: 'congratulationsAtMeeting',
+    workInMatterMost: 'workInMatterMost',
     congratulationsInMm: 'congratulationsInMm',
     internetWentDown: 'internetWentDown',
     masterFixTheInternet: 'masterFixTheInternet',

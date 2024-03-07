@@ -76,7 +76,7 @@ const getActions = () => {
         },
         workAtHomeStart: [],
         workAtHome: [{ text: BUTTONS.WORK_AT_HOME.NEXT, nextScene: SCENES.meetingAtHome }],
-        meetingAtHome: [{ text: BUTTONS.MEETING_AT_HOME.NEXT, nextScene: SCENES.congratulationsInMm }],
+        meetingAtHome: [{ text: BUTTONS.MEETING_AT_HOME.NEXT, nextScene: SCENES.congratulationsAtMeeting }],
         congratulationsInMm: [{ text: BUTTONS.CONGRATULATIONS_IN_MM.NEXT, nextScene: SCENES.internetWentDown }],
         internetWentDown: [
             { text: 'Вызвать мастера', nextScene: SCENES.masterFixTheInternet },
@@ -291,6 +291,15 @@ export const getSceneGraph = () => {
             actions: ACTIONS.meetingAtHome,
             scene: IMAGE.HOME_WORKPLACE,
             text: TEXT.MEETING_AT_HOME,
+            type: TYPE.text,
+        },
+        [SCENES.congratulationsAtMeeting]: {
+            scene: VIDEO.MEETING_CONGRATULATIONS,
+            type: TYPE.video,
+        },
+        [SCENES.workInMatterMost]: {
+            text: 'Так, пора работать дальше...',
+            scene: IMAGE.HOME_WORKPLACE,
             type: TYPE.text,
         },
         [SCENES.congratulationsInMm]: {
@@ -571,6 +580,9 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.breakFestFromSasha]: SCENES.workPlaceSelection,
     [SCENES.workAtHomeStart]: SCENES.workAtHome,
     [SCENES.workAtHome]: SCENES.meetingAtHome,
+    [SCENES.congratulationsAtMeeting]: SCENES.workInMatterMost,
+    [SCENES.workInMatterMost]: SCENES.congratulationsInMm,
+
     [SCENES.taxi]: SCENES.toOfficeRoad,
     [SCENES.pony]: SCENES.toOfficeRoad,
     [SCENES.walking]: SCENES.toOfficeRoad,

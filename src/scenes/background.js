@@ -36,6 +36,8 @@ export const VIDEO = {
     DENIS_MONTAGER: loadVideo('denis_montager.mp4'),
     BREAK_FEST: loadVideo('zavtrak.mp4'),
 
+    MEETING_CONGRATULATIONS: loadVideo('meeting_congratulations.mp4'),
+
     OFFER_FLOWERS: loadVideo('dima-podarok-cvetok2.mp4'),
     FLOWERS_ARE_GIFT: loadVideo('dima-vrychenie-cvetka.mp4'),
     EATING_FLOWERS: loadVideo('dima-est-cvetok.mp4'),
