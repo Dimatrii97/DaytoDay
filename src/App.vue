@@ -14,8 +14,8 @@
                 @click="enableMusicForUser = true"
             />
         </div>
-        <div 
-            v-if="!started" 
+        <div
+            v-if="!started"
             class="start"
             :style="{ backgroundImage: createBackgroundUrl(backgroundUrl) }"
         >
@@ -33,10 +33,10 @@
                 <div class="alert">
                     Подсказка: чтобы пропустить текст и чтобы панель управления появилась на видео, нужно нажать пробел
                 </div>
-                TODO: УДАЛИТЬ БЛЯТЬ
+                <!-- TODO: УДАЛИТЬ БЛЯТЬ
                 <select v-model="currentSceneId">
                     <option v-for="scene in scenes" :key="scene">{{ scene }}</option>
-                </select>
+                </select> -->
             </div>
         </div>
         <VScene
