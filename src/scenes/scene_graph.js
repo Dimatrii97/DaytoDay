@@ -326,6 +326,7 @@ export const getSceneGraph = () => {
             text: TEXT.MASTER_FIX_THE_INTERNET,
             type: TYPE.video,
             textDelay: 15000,
+            showControlsImmediately: true,
         },
 
         // транспорт в офис
