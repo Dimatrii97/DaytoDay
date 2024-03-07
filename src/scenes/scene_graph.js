@@ -451,7 +451,7 @@ export const getSceneGraph = () => {
             },
             actions: [
                 { text: 'Пора отдыхать', nextScene: SCENES.happyEndGame },
-                { text: 'Так! А дальше?', nextScene:SCENES.talkWithDima, }
+                { text: 'Так! А дальше?', nextScene:SCENES.talkWithAndrey, }
             ],
             scene: IMAGE.OFFICE,
             text: 'О, привет! Слушай, хочешь историю? Вот недавно был у стоматолога, это был поздний вечер и последний приём стоматолога.',
@@ -559,6 +559,16 @@ export const getSceneGraph = () => {
             type: TYPE.text,
         },
 
+        [SCENES.talkWithAndrey5]: {
+            person: {
+                url: PERSON.ANDREY_2,
+            },
+            scene: IMAGE.OFFICE,
+            text: 'АХАХАХАХАХАХАХАХА.... Да очень смешной анекдот, ладно мне пора работать еще раз с праздником!',
+            actions: [{ ...NEXT_ACTION, text: 'Спасибо, а я наверное пойду уже отдыхать' }],
+            type: TYPE.text,
+        },
+
         // Денис
         [SCENES.talkWithDenis]: {
             person: {
@@ -650,25 +660,30 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.vodkaAsGift]: SCENES.goToWorkPlaceInOffice,
     [SCENES.goToWorkPlaceInOffice]: SCENES.talkWithKolyaStart,
 
+    [SCENES.talkWithKolyaStart]: SCENES.talkWithKolya,
     [SCENES.talkWithKolya]: SCENES.talkWithKolya2,
     [SCENES.talkWithKolya2]: SCENES.talkWithKolya3,
     [SCENES.talkWithKolya3]: SCENES.talkWithKolya4,
     [SCENES.talkWithKolya4]: SCENES.talkWithKolya5,
-    [SCENES.talkWithKolya5]: SCENES.workInOffice,
+    [SCENES.talkWithKolya5]: SCENES.talkWithDenisStart,
 
+    [SCENES.talkWithAndreyStart]: SCENES.talkWithAndrey,
     [SCENES.talkWithAndrey]: SCENES.talkWithAndrey2,
     [SCENES.talkWithAndrey2]: SCENES.talkWithAndrey3,
     [SCENES.talkWithAndrey3]: SCENES.talkWithAndrey4,
-    [SCENES.talkWithAndrey4]: SCENES.workInOffice,
+    [SCENES.talkWithAndrey4]: SCENES.talkWithAndrey5,
+    [SCENES.talkWithAndrey5]: SCENES.happyEndGame,
 
+    [SCENES.talkWithDimaStart]: SCENES.talkWithDima,
     [SCENES.talkWithDima]: SCENES.talkWithDima2,
     [SCENES.talkWithDima2]: SCENES.talkWithDima3,
     [SCENES.talkWithDima3]: SCENES.talkWithDima4,
-    [SCENES.talkWithDima4]: SCENES.workInOffice,
+    [SCENES.talkWithDima4]: SCENES.talkWithAndreyStart,
 
+    [SCENES.talkWithDenisStart]: SCENES.talkWithDenis,
     [SCENES.talkWithDenis]: SCENES.talkWithDenis2,
     [SCENES.talkWithDenis2]: SCENES.talkWithDenis3,
-    [SCENES.talkWithDenis3]: SCENES.workInOffice,
+    [SCENES.talkWithDenis3]: SCENES.talkWithDimaStart,
 
     [SCENES.workInOffice]: SCENES.happyEndGame,
 };
