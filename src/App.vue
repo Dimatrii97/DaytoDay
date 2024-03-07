@@ -30,6 +30,9 @@
                         Взрослый
                     </button>
                 </div>
+                <div class="alert">
+                    Подсказка: чтобы пропустить текст и чтобы панель управления появилась на видео, нужно нажать пробел
+                </div>
                 TODO: УДАЛИТЬ БЛЯТЬ
                 <select v-model="currentSceneId">
                     <option v-for="scene in scenes" :key="scene">{{ scene }}</option>
@@ -188,7 +191,7 @@ export default {
         position: relative;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
         justify-content: center;
         align-items: center;
         z-index: 5;
@@ -203,6 +206,13 @@ export default {
             font-size: 32px;
             color: white;
         }
+    }
+
+    .alert {
+        margin-top: 100px;
+        padding: 20px;
+        background: white;
+        opacity: .7;
     }
 }
 
