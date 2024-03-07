@@ -54,6 +54,7 @@ export const SCENES = {
     workInOffice: 'workInOffice',
     vodkaAsGift: 'vodkaAsGift',
 
+    talkWithKolyaStart: 'talkWithKolyaStart',
     talkWithKolya: 'talkWithKolya',
     talkWithKolya2: 'talkWithKolya2',
     talkWithKolya3: 'talkWithKolya3',
@@ -62,17 +63,20 @@ export const SCENES = {
     talkWithKolya6: 'talkWithKolya6',
     talkWithKolya7: 'talkWithKolya7',
 
+    talkWithDenisStart: 'talkWithDenisStart',
     talkWithDenis: 'talkWithDenis',
     talkWithDenis2: 'talkWithDenis2',
     talkWithDenis3: 'talkWithDenis3',
     talkWithDenis4: 'talkWithDenis4',
 
+    talkWithDimaStart: 'talkWithDimaStart',
     talkWithDima: 'talkWithDima',
     talkWithDima2: 'talkWithDima2',
     talkWithDima3: 'talkWithDima3',
     talkWithDima4: 'talkWithDima4',
     talkWithDima5: 'talkWithDima5',
 
+    talkWithAndreyStart: 'talkWithAndreyStart',
     talkWithAndrey: 'talkWithAndrey',
     talkWithAndrey2: 'talkWithAndrey2',
     talkWithAndrey3: 'talkWithAndrey3',

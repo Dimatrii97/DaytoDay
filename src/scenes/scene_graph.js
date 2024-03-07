@@ -1,9 +1,8 @@
-import { SCENES, TYPE, NPC } from './constants';
+import { SCENES, TYPE } from './constants';
 import { IMAGE, VIDEO, GAME } from './background';
 import { PERSON } from './person';
 import { state } from './state';
 import { getText, getButtons } from './text';
-import { randomItemFromList } from '@/util.js';
 
 const nextAlarmAction = currentScene => {
     if (currentScene === SCENES.alarm800) {
@@ -108,61 +107,60 @@ export const NEXT_ACTION = {
 
 export const END_GAME_ACTIONS = [{ text: 'Заново', nextScene: RESTART_ACTION_ID }];
 
-const workInOfficeParams = () => {
-    // NOTE: тексты должны разные иначе все ебанется
-    const npcList = [
-        {
-            name: NPC.NIKOLAI,
-            person: PERSON.KOLYA_STAND,
-            text: 'Привет! Как дела?',
-            answer: 'Хорошо. У тебя как?',
-            nextScene: SCENES.talkWithKolya,
-        },
-        {
-            name: NPC.DENIS,
-            person: PERSON.DENIS_K_GREETINGS,
-            text: 'Ой, привет! Ну надо же, совсем не ожидал встретить тебя здесь!',
-            nextScene: SCENES.talkWithDenis,
-            answer: 'Привет!',
-        },
-        {
-            name: NPC.DIMA,
-            person: PERSON.DIMA_HELLO,
-            text: 'Привет!',
-            nextScene: SCENES.talkWithDima,
-            answer: 'Привет! Есть вопрос...',
-        },
-        {
-            name: NPC.ANDREY,
-            person: PERSON.ANDREY_TALKING,
-            text: 'О, привет! Слушай, хочешь историю? Вот недавно был у стоматолога, это был поздний вечер и последний приём стоматолога.',
-            nextScene: SCENES.talkWithAndrey,
-            answer: 'Так! А дальше?',
-        },
-    ].filter(it => !state.talkedWithNpc(it.name));
-
-    if (state.talkedWithAllNpc) {
-        return {
-            text: 'Фух, кажется рабочий день закончился...',
-            actions: [{ text: 'Пора отдыхать', nextScene: SCENES.happyEndGame }],
-        };
-    }
-
-    const currentNpc = randomItemFromList(npcList);
-
-    const callback = () => state.talkWithNpc(currentNpc.name);
-
-    return {
-        text: currentNpc.text,
-        person: {
-            url: currentNpc.person,
-        },
-        actions: [
-            { text: 'Работать', nextScene: SCENES.workInOffice, callback },
-            { text: currentNpc.answer, nextScene: currentNpc.nextScene, callback },
-        ],
-    };
-};
+// const workInOfficeParams = () => {
+//     // NOTE: тексты должны разные иначе все ебанется
+//     const npcList = [
+//         {
+//             name: NPC.NIKOLAI,
+//             person: PERSON.KOLYA_STAND,
+//             text: 'Привет! Как дела?',
+//             answer: 'Хорошо. У тебя как?',
+//             nextScene: SCENES.talkWithKolya,
+//         },
+//         {
+//             name: NPC.DENIS,
+//             person: PERSON.DENIS_K_GREETINGS,
+//             text: 'Ой, привет! Ну надо же, совсем не ожидал встретить тебя здесь!',
+//             nextScene: SCENES.talkWithDenis,
+//             answer: 'Привет!',
+//         },
+//         {
+//             name: NPC.DIMA,
+//             person: PERSON.DIMA_HELLO,
+//             text: 'Привет!',
+//             nextScene: SCENES.talkWithDima,
+//             answer: 'Привет! Есть вопрос...',
+//         },
+//         {
+//             name: NPC.ANDREY,
+//             person: PERSON.ANDREY_TALKING,
+//             text: 'О, привет! Слушай, хочешь историю? Вот недавно был у стоматолога, это был поздний вечер и последний приём стоматолога.',
+//             nextScene: SCENES.talkWithAndrey,
+//             answer: 'Так! А дальше?',
+//         },
+//     ].filter(it => !state.talkedWithNpc(it.name));
+//
+//     if (state.talkedWithAllNpc) {
+//         return {
+//             text: 'Фух, кажется рабочий день закончился...',
+//         };
+//     }
+//
+//     const currentNpc = randomItemFromList(npcList);
+//
+//     const callback = () => state.talkWithNpc(currentNpc.name);
+//
+//     return {
+//         text: currentNpc.text,
+//         person: {
+//             url: currentNpc.person,
+//         },
+//         actions: [
+//             { text: 'Работать', nextScene: SCENES.workInOffice, callback },
+//             { text: currentNpc.answer, nextScene: currentNpc.nextScene, callback },
+//         ],
+//     };
+// };
 
 export const getSceneGraph = () => {
     const TEXT = getText();
@@ -406,9 +404,57 @@ export const getSceneGraph = () => {
             scene: IMAGE.OFFICE,
             type: TYPE.text,
         },
-        [SCENES.workInOffice]: {
-            ...workInOfficeParams(),
+
+
+        [SCENES.talkWithKolyaStart]: {
+            person: {
+                url: PERSON.KOLYA_STAND,
+            },
+            actions: [
+                { text: 'Работать', nextScene: SCENES.talkWithDenisStart },
+                { text: 'Хорошо. У тебя как?', nextScene:SCENES.talkWithKolya, }
+            ],
             scene: IMAGE.OFFICE,
+            text: 'Привет! Как дела?',
+            type: TYPE.text,
+        },
+
+        [SCENES.talkWithDenisStart]: {
+            person: {
+                url: PERSON.DENIS_K_GREETINGS,
+            },
+            actions: [
+                { text: 'Работать', nextScene: SCENES.talkWithDimaStart },
+                { text: 'Привет!', nextScene:SCENES.talkWithDenis, }
+            ],
+            scene: IMAGE.OFFICE,
+            text: 'Ой, привет! Ну надо же, совсем не ожидал встретить тебя здесь!',
+            type: TYPE.text,
+        },
+
+        [SCENES.talkWithDimaStart]: {
+            person: {
+                url: PERSON.DIMA_HELLO,
+            },
+            actions: [
+                { text: 'Работать', nextScene: SCENES.talkWithAndreyStart },
+                { text: 'Привет! Есть вопрос...', nextScene:SCENES.talkWithDima, }
+            ],
+            scene: IMAGE.OFFICE,
+            text: 'Привет!',
+            type: TYPE.text,
+        },
+
+        [SCENES.talkWithAndreyStart]: {
+            person: {
+                url: PERSON.ANDREY_TALKING,
+            },
+            actions: [
+                { text: 'Пора отдыхать', nextScene: SCENES.happyEndGame },
+                { text: 'Так! А дальше?', nextScene:SCENES.talkWithDima, }
+            ],
+            scene: IMAGE.OFFICE,
+            text: 'О, привет! Слушай, хочешь историю? Вот недавно был у стоматолога, это был поздний вечер и последний приём стоматолога.',
             type: TYPE.text,
         },
 
@@ -602,7 +648,7 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.flowersAreGift]: SCENES.goToWorkPlaceInOffice,
     [SCENES.eatFlowers]: SCENES.vodkaAsGift,
     [SCENES.vodkaAsGift]: SCENES.goToWorkPlaceInOffice,
-    [SCENES.goToWorkPlaceInOffice]: SCENES.workInOffice,
+    [SCENES.goToWorkPlaceInOffice]: SCENES.talkWithKolyaStart,
 
     [SCENES.talkWithKolya]: SCENES.talkWithKolya2,
     [SCENES.talkWithKolya2]: SCENES.talkWithKolya3,

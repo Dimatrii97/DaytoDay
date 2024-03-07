@@ -1,5 +1,6 @@
 <template>
     <!-- Дима л... лучший разработчик CRM B2B! -->
+<!--  Ууу сю... сюрпризный мальчик  -->
     <div class="control-panel">
         <span class="autor"> </span>
         <div class="panel">
@@ -86,7 +87,6 @@ export default {
     },
     mounted() {
         document.addEventListener('keyup', this.skipTypeWriterEffectOnSpace);
-
         const writer = new Typewriter('#typewriter', {
             autoStart: true,
             delay: 65,
