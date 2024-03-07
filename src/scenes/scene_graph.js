@@ -336,7 +336,7 @@ export const getSceneGraph = () => {
             type: TYPE.text,
         },
         [SCENES.taxi]: {
-            scene: IMAGE.HOME,
+            scene: IMAGE.TAXI,
             text: 'Машина не может подъехать на ваш заказ, пожалуйста подождите... Бесконечно',
             type: TYPE.text,
         },

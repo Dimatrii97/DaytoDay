@@ -19,6 +19,7 @@ export const IMAGE = {
     HOME_WORKPLACE: loadBackground('home_workplace.jpg'),
     SHOWER: loadBackground('shower.jpg'),
     KITCHEN: loadBackground('kitchen.jpg'),
+    TAXI: loadBackground('taxi.jpg'),
 
     BAD_WEATHER: loadBackground('bad_weather.webp'),
     PONY: loadBackground('pony.webp'),
