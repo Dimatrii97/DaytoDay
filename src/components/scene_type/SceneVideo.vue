@@ -50,7 +50,7 @@ export default {
     },
     mounted() {
         document.addEventListener('keyup', this.showControlsOnSpace);
-        this.showControls = this.showControlPanelAfterEnding || false;
+        this.showControls = this.scene.showControlsImmediately ?? false;
     },
     beforeUnmount() {
         document.removeEventListener('keyup', this.showControlsOnSpace);

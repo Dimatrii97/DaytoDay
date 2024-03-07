@@ -172,6 +172,7 @@ export const getSceneGraph = () => {
         actions: END_GAME_ACTIONS,
         scene: VIDEO.DIRECTED_BY_ROBERT,
         type: TYPE.video,
+        showControlsImmediately: true,
     };
 
     const HAPPY_ENDING = {
