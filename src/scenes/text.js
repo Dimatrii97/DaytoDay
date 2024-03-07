@@ -74,7 +74,7 @@ const ADULT_BUTTONS = {
         NO: 'Пошел ты!',
     },
     BREAKFEST_SELECTION: {
-        BEER: 'Выпить пиво',
+        ALCO: 'Начинаем день правильно... С вина!',
         TRASH: 'Саша приготовит трешовый завтрак',
     },
     WORK_AT_HOME: {
@@ -100,7 +100,7 @@ const BASE_BUTTONS = {
         NO: 'Нет',
     },
     BREAKFEST_SELECTION: {
-        BEER: 'Выпить пиво',
+        ALCO: 'Выпить вина',
         TRASH: 'Саша приготовит трешовый завтрак',
     },
     WORK_AT_HOME: {

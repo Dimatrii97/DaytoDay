@@ -35,6 +35,7 @@ export const VIDEO = {
     TIMA_IN_SHOWER: loadVideo('tima_in_shower.mp4'),
     DENIS_MONTAGER: loadVideo('denis_montager.mp4'),
     BREAK_FEST: loadVideo('zavtrak.mp4'),
+    DRINK_WINE: loadVideo('drink_wine.mp4'),
 
     MEETING_CONGRATULATIONS: loadVideo('meeting_congratulations.mp4'),
 

@@ -22,6 +22,7 @@ export const SCENES = {
 
     willYouEat: 'willYouEat',
     breakFestFromSasha: 'breakFestFromSasha',
+    drinkWine: 'drinkWine',
     breakFestSelection: 'breakFestSelection',
 
     workPlaceSelection: 'workPlaceSelection',

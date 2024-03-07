@@ -107,6 +107,11 @@ export default {
             }
 
             this.started = true;
+
+            // TODO: ебучий костыль, чтобы кнопочки и текста перезагружались после выбора версии игры
+            const currentSceneId = this.currentSceneId;
+            this.currentSceneId = null;
+            this.currentSceneId = currentSceneId;
         },
         changeScene({ nextScene, text, callback }) {
             state.handleScene({ nextScene, text, callback });

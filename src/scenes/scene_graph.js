@@ -27,6 +27,8 @@ const nextAlarmAction = currentScene => {
 
 const getActions = () => {
     const BUTTONS = getButtons();
+    console.log('state', state.isAdultVersion);
+    console.log({ BUTTONS });
 
     return {
         alarmActions: currentScene => {
@@ -47,7 +49,7 @@ const getActions = () => {
             { text: 'Нет', nextScene: SCENES.workPlaceSelection },
         ],
         breakFestSelection: [
-            { text: BUTTONS.BREAKFEST_SELECTION.BEER, nextScene: SCENES.workPlaceSelection },
+            { text: BUTTONS.BREAKFEST_SELECTION.ALCO, nextScene: SCENES.drinkWine },
             // TODO: вероятно, тут нужен переход к видосику, где Саша готовит трешовый завтрак
             { text: BUTTONS.BREAKFEST_SELECTION.TRASH, nextScene: SCENES.breakFestFromSasha },
         ],
@@ -263,6 +265,11 @@ export const getSceneGraph = () => {
         },
         [SCENES.breakFestFromSasha]: {
             scene: VIDEO.BREAK_FEST,
+            text: '',
+            type: TYPE.video,
+        },
+        [SCENES.drinkWine]: {
+            scene: VIDEO.DRINK_WINE,
             text: '',
             type: TYPE.video,
         },
@@ -579,6 +586,8 @@ export const NEXT_SCENE_TRANSITION = {
     [SCENES.alarm800]: SCENES.goToShower,
     [SCENES.timaInShower]: SCENES.willYouEat,
     [SCENES.breakFestFromSasha]: SCENES.workPlaceSelection,
+    [SCENES.drinkWine]: SCENES.workPlaceSelection,
+
     [SCENES.workAtHomeStart]: SCENES.workAtHome,
     [SCENES.workAtHome]: SCENES.meetingAtHome,
     [SCENES.congratulationsAtMeeting]: SCENES.workInMatterMost,
