@@ -100,7 +100,7 @@ const BASE_BUTTONS = {
         NO: 'Нет',
     },
     BREAKFEST_SELECTION: {
-        ALCO: 'Выпить вина',
+        ALCO: 'Хороший завтрак',
         TRASH: 'Саша приготовит трешовый завтрак',
     },
     WORK_AT_HOME: {
